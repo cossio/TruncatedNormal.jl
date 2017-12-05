@@ -7,23 +7,23 @@
 [![codecov.io](http://codecov.io/github/cossio/TruncatedNormal.jl/coverage.svg?branch=master)](http://codecov.io/github/cossio/TruncatedNormal.jl?branch=master)
 
 
+Mean of the truncated standard normal distribution:
+
     tnmean(a,b)
-
-Mean of the truncated standard normal distribution
-
-    tnmean(a, b, μ, σ)
 
 Mean of the truncated normal distribution, where μ,σ
 are the mean and standard deviation of the untruncated
-distribution.
+distribution:
 
+    tnmean(a, b, μ, σ)
+
+Variance of the truncated standard normal distribution:
 
     tnvar(a,b)
 
-Variance of the truncated standard normal distribution
+Variance of the truncated normal distribution, where μ,σ
+are the mean and standard deviation of the untruncated
+distribution:
 
     tnvar(a, b, μ, σ)
 
-Variance of the truncated normal distribution, where μ,σ
-are the mean and standard deviation of the untruncated
-distribution.
