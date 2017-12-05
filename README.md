@@ -29,5 +29,4 @@ distribution:
 
     tnvar(a, b, μ, σ)
 
-
-See TruncatedNormal.jl/notes/normal.pdf for mathematical details.
+See https://github.com/cossio/TruncatedNormal.jl/blob/master/notes/normal.pdf for mathematical details.
