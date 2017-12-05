@@ -29,3 +29,5 @@ distribution:
 
     tnvar(a, b, μ, σ)
 
+
+See TruncatedNormal.jl/notes/normal.pdf for mathematical details.
