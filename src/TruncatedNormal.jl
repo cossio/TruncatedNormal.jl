@@ -1,5 +1,6 @@
 module TruncatedNormal
 
-# package code goes here
+include("F.jl")
+include("moments.jl")
 
 end # module
