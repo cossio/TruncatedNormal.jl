@@ -6,6 +6,10 @@
 
 [![codecov.io](http://codecov.io/github/cossio/TruncatedNormal.jl/coverage.svg?branch=master)](http://codecov.io/github/cossio/TruncatedNormal.jl?branch=master)
 
+Install with
+
+    Pkg.clone("https://github.com/cossio/TruncatedNormal.jl")
+    using TruncatedNormal
 
 Mean of the truncated standard normal distribution:
 
