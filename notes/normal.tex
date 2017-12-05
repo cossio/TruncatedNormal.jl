@@ -1,0 +1,90 @@
+%% LyX 2.2.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{babel}
+\begin{document}
+
+\title{Moments of the univariate truncated normal distribution}
+
+\author{Jorge Fernandez-de-Cossio-Diaz}
+
+\maketitle
+The PDF of the truncated normal distribution is\footnote{See https://en.wikipedia.org/wiki/Truncated\_normal\_distribution.}:
+\[
+f\left(x;\mu,\sigma,a,b\right)=\begin{cases}
+\frac{1}{\sigma}\frac{\phi\left(\frac{x-\mu}{\sigma}\right)}{\Phi\left(\frac{b-\mu}{\sigma}\right)-\Phi\left(\frac{a-\mu}{\sigma}\right)} & a\le x\le b\\
+0 & \text{otherwise}
+\end{cases}
+\]
+where $\mu,\sigma$ are the mean and standard deviation of the untruncated
+normal, and
+\[
+\phi\left(x\right)=\frac{1}{\sqrt{2\pi}}\mathrm{e}^{-x^{2}/2},\quad\Phi\left(x\right)=\frac{1}{2}\left(1+\mathrm{erf}\left(x/\sqrt{2}\right)\right)
+\]
+\[
+\left(x-a\right)^{2}=x^{2}-2ax+a^{2}
+\]
+The mean and variance of this distribution are:
+\begin{align*}
+\left\langle x\right\rangle  & =\mu+\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}\sigma\\
+\mathrm{var}\,x & =\left[1+\frac{\alpha\phi\left(\alpha\right)-\beta\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}-\left(\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}\right)^{2}\right]\sigma^{2}
+\end{align*}
+where
+\[
+\alpha=\frac{a-\mu}{\sigma},\quad\beta=\frac{b-\mu}{\sigma}
+\]
+The numerical evaluation of $\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}$
+and $\frac{\alpha\phi\left(\alpha\right)-\beta\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}$
+can be problematic. We describe our approach below.
+
+\section*{Numerical evaluation}
+
+Let us define the functions:
+\[
+F_{1}\left(x,y\right)=\frac{\mathrm{e}^{-x^{2}}-\mathrm{e}^{-y^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)},\quad F_{2}\left(x,y\right)=\frac{x\mathrm{e}^{-x^{2}}-y\mathrm{e}^{-y^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)}
+\]
+The problem arises when $x,y$ have the same sign and both are large
+in magnitude. Then $\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)$
+is the difference of two numbers close to $\pm1$, but typically their
+difference itself is very small. Subtraction of two numbers that are
+both large relative to their difference is a classic source of floating-point
+errors (known as \emph{catastrophic cancellation}). 
+
+Recall a few useful properties of the error and related functions:
+\[
+\mathrm{erf}\left(-x\right)=\mathrm{erf}\left(x\right),\quad\mathrm{erfc}\left(x\right)=1-\mathrm{erf}\left(x\right)=\mathrm{e}^{-x^{2}}\mathrm{erfcx}\left(x\right)
+\]
+The functions $\mathrm{erf}\left(x\right)$, $\mathrm{erfc}\left(x\right)$,
+$\mathrm{erfcx}\left(x\right)$ are all available in numerical packages.
+Using these, we can make sure that the error function difference is
+never catastrophic. Let $\epsilon=\mathrm{e}^{x^{2}-y^{2}}$. We propose:
+\begin{align*}
+ & F_{1}\left(x,y\right) &  & F_{2}\left(x,y\right)\\
+ & =F_{1}\left(y,x\right), &  & =F_{2}\left(y,x\right), &  & \text{if }\left|x\right|>\left|y\right|\\
+ & =P_{1}\left(x,y-x\right), &  & =P_{2}\left(x,y-x\right), &  & \text{if }\left|x-y\right|<10^{-7}\\
+ & =\frac{1-\epsilon}{\epsilon\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & =\frac{x-y\epsilon}{\epsilon\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & \text{if }x,y\le0\\
+ & =\frac{1-\epsilon}{\mathrm{erfcx}\left(x\right)-\epsilon\mathrm{erfcx}\left(y\right)} &  & =\frac{x-y\epsilon}{\mathrm{erfcx}\left(x\right)-\epsilon\mathrm{erfcx}\left(y\right)} &  & \text{if }x,y\ge0\\
+ & =\frac{\left(1-\epsilon\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & =\frac{\left(x-y\epsilon\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & \text{otherwise}
+\end{align*}
+When $x\approx y$, we employ a Taylor expansion of $F_{i}\left(x,x+\epsilon\right)$
+in powers of $\epsilon$,
+\begin{align*}
+P_{1}\left(x,\epsilon\right) & =\sqrt{\pi}x+\frac{1}{2}\sqrt{\pi}\epsilon-\frac{1}{6}\sqrt{\pi}x\epsilon^{2}-\frac{1}{12}\sqrt{\pi}\epsilon^{3}+\frac{1}{90}\sqrt{\pi}x\left(x^{2}+1\right)\epsilon^{4}\\
+P_{2}\left(x,\epsilon\right) & =\frac{1}{2}\sqrt{\pi}\left(2x^{2}-1\right)+\sqrt{\pi}x\epsilon-\frac{1}{3}\sqrt{\pi}\left(x^{2}-1\right)\epsilon^{2}-\frac{1}{3}\sqrt{\pi}x\epsilon^{3}+\frac{1}{90}\sqrt{\pi}\left(2x^{4}+3x^{2}-8\right)\epsilon^{4}
+\end{align*}
+
+\section*{Mean and variance}
+
+Finally observe that,
+
+\[
+\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}=\sqrt{\frac{2}{\pi}}F_{1}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right),\quad\frac{\alpha\phi\left(\alpha\right)-\beta\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}=\frac{2}{\sqrt{\pi}}F_{2}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right)
+\]
+\[
+\frac{\alpha\phi\left(\alpha\right)-\beta\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}-\left(\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}\right)^{2}=\frac{2}{\sqrt{\pi}}F_{2}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right)-\frac{2}{\pi}\left[F_{1}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right)\right]^{2}
+\]
+
+\end{document}

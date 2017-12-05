@@ -266,7 +266,7 @@ Finally observe that,
 
 \begin_inset Formula 
 \[
-\frac{\alpha\phi\left(\alpha\right)-\beta\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}-\left(\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}\right)^{2}=\frac{2}{\sqrt{\pi}}F_{2}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right)-
+\frac{\alpha\phi\left(\alpha\right)-\beta\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}-\left(\frac{\phi\left(\alpha\right)-\phi\left(\beta\right)}{\Phi\left(\beta\right)-\Phi\left(\alpha\right)}\right)^{2}=\frac{2}{\sqrt{\pi}}F_{2}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right)-\frac{2}{\pi}\left[F_{1}\left(\frac{\alpha}{\sqrt{2}},\frac{\beta}{\sqrt{2}}\right)\right]^{2}
 \]
 
 \end_inset
