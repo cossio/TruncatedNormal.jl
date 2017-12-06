@@ -1,12 +1,12 @@
 using SpecialFunctions
 
 
-function F1(x::Real, y::Real; thresh=1e-7)
+function _F1(x::Real, y::Real; thresh=1e-7)
     @assert 0 < thresh < Inf
-    -Inf < x < Inf && -Inf < y < Inf || throw(DomainError())
+    #-Inf < x < Inf && -Inf < y < Inf || throw(DomainError())
     ϵ = exp(x^2 - y^2)
     if abs(x) > abs(y)
-        F1(y,x)
+        _F1(y,x)
     elseif abs(x - y) ≤ thresh
         δ = y - x
         √π*x + (√π/2 + (-√π*x/6 + (-√π/12 + x*(√π/90 + (√π*x^2)/90)δ)δ)δ)δ
@@ -20,12 +20,12 @@ function F1(x::Real, y::Real; thresh=1e-7)
 end
 
 
-function F2(x::Real, y::Real; thresh=1e-7)
+function _F2(x::Real, y::Real; thresh=1e-7)
     @assert 0 < thresh < Inf
     -Inf < x < Inf && -Inf < y < Inf || throw(DomainError())
     ϵ = exp(x^2 - y^2)
     if abs(x) > abs(y)
-        F2(y,x)
+        _F2(y,x)
     elseif abs(x - y) ≤ thresh
         δ = y - x
         √π*x^2 - √π/2 + (√π*x + (√π/3 - √π*x^2/3 + (((√π/30 + √π*x^2/45)x^2 - 4*√π/45)δ - √π*x/3)δ)δ)δ

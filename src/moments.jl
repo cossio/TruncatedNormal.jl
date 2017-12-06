@@ -13,7 +13,7 @@ function tnmean end
 
 function tnmean(a, b)
     -Inf < a ≤ b < Inf || throw(DomainError())
-    √(2/π) * F1(a/√2, b/√2)
+    √(2/π) * _F1(a/√2, b/√2)
 end
 
 function tnmean(a, b, μ, σ)
@@ -37,7 +37,7 @@ function tnvar end
 
 function tnvar(a, b)
     -Inf < a ≤ b < Inf || throw(DomainError())
-    1 + 2/√π * F2(a/√2, b/√2) - 2/π * F1(a/√2, b/√2)^2
+    1 + 2/√π * _F2(a/√2, b/√2) - 2/π * _F1(a/√2, b/√2)^2
 end
 
 function tnvar(a, b, μ, σ)
