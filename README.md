@@ -4,8 +4,6 @@
 [![Coverage Status](https://coveralls.io/repos/cossio/TruncatedNormal.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/cossio/TruncatedNormal.jl?branch=master)
 [![codecov.io](http://codecov.io/github/cossio/TruncatedNormal.jl/coverage.svg?branch=master)](http://codecov.io/github/cossio/TruncatedNormal.jl?branch=master)
 
-It works even if the truncation interval is far from the mode of the distribution.
-
 Install with
 
     Pkg.clone("https://github.com/cossio/TruncatedNormal.jl")
@@ -31,4 +29,4 @@ distribution:
 
     tnvar(a, b, μ, σ)
 
-See https://github.com/cossio/TruncatedNormal.jl/blob/master/notes/normal.pdf for mathematical details.
+It works even if the truncation interval is far from the mode of the distribution. See https://github.com/cossio/TruncatedNormal.jl/blob/master/notes/normal.pdf for mathematical details.
