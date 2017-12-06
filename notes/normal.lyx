@@ -112,14 +112,6 @@ where
 
 \end_inset
 
-
-\begin_inset Formula 
-\[
-\left(x-a\right)^{2}=x^{2}-2ax+a^{2}
-\]
-
-\end_inset
-
 The mean and variance of this distribution are:
 \begin_inset Formula 
 \begin{align*}
