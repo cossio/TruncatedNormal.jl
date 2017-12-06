@@ -4,9 +4,20 @@ import TruncatedNormal
 TN = TruncatedNormal
 
 @testset "F1 & F2" begin
-    @testset "|x-y| ≤ thresh" begin
+    @testset "x ≈ y" begin
         @test TN._F1(1, 1 + 1e-8; thresh=1e-7) ≈ 1.7724538597677852522848499570355616296194525129226
         @test TN._F2(1, 1 + 1e-8; thresh=1e-7) ≈ 0.88622694317729652270424342383429653215361427389442
+        @test TN._F1(0., 1e-10; thresh=1e-7) ≈ 8.8622692545275801364760669679481799470936057318833e-11
+        @test TN._F2(0., 1e-10; thresh=1e-7) ≈ -0.88622692545275801364317556216755420464112992492873
+    end
+
+    @testset "x == y" begin
+        for r = 1:100
+            x = rand() - 0.5
+            test1 = @test TN._F1(x,x) ≈ x * √π
+            test2 = @test TN._F2(x,x) ≈ x^2 * √π - √π/2
+            test1 isa Base.Test.Pass && test2 isa Base.Test.Pass || println("failed with x=$x, y=$y")
+        end
     end
 
     @testset "x ≤ 0 ≤ y || y ≤ 0 ≤ x" begin
@@ -50,12 +61,21 @@ TN = TruncatedNormal
             x,y = rand(2) - 0.5
             tests = [(@test TN._F1(x,y) == TN._F1(y,x)),
                      (@test TN._F2(x,y) == TN._F2(y,x))]
-            any(typeof.(tests) .≠ Base.Test.Pass) && @show x,y
+            any(typeof.(tests) .≠ Base.Test.Pass) && println("test failed with x=$x, y=$y")
         end
     end
 
     @testset "domain" begin
         @test TN._F1(-Inf, 4) ≈ -5.6267587793375513475446683601854348428628957869071e-8
         @test TN._F1(1, Inf) ≈ 2.3387240665100064766139367309817876522370369361221
+    end
+
+    @testset "Random numbers" begin
+        for r = 1:100
+            x,y = rand(2) - 0.5
+            test1 = @test TN._F1(x,y) ≈ (exp(-x^2) - exp(-y^2)) / (erf(y) - erf(x))
+            test2 = @test TN._F2(x,y) ≈ (exp(-x^2)*x - exp(-y^2)*y) / (erf(y) - erf(x))
+            test1 isa Base.Test.Pass && test2 isa Base.Test.Pass || println("test failed with x=$x, y=$y")
+        end
     end
 end
