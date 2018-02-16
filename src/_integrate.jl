@@ -21,8 +21,8 @@ function _integrate(f, a::Vector, b::Vector, μ::Vector, Σinv::Matrix; H::Real 
     
     any(a .== b) && return 0., 0.
     
-    # point closest to μ within the rectangle a .≤ x .≤ b.
-    x0 = clamp.(μ, a, b)
+    # point that maximizes (x-μ)ᵀΣinv(x-μ) within the rectangle a .≤ x .≤ b.
+    x0 = _rectmin(a, b, μ, Σinv)
 
     a0 = max.(a, x0 - Δ)
     b0 = min.(b, x0 + Δ)

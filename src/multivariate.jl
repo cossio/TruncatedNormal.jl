@@ -7,8 +7,9 @@ function mtnexpectation(f, a::Vector, b::Vector, μ::Vector, Σinv::Matrix)
     @assert all(-Inf .< a .≤ b .< Inf)  # I do not support infinite bounds yet ... maybe in the future
     @assert all(-Inf .< μ .< Inf)
 
-    x0 = clamp.(μ, a, b)
-    fmax = exp(-(x0 - μ)' * Σinv * (x0 - μ))
+    # point that minimizes (x-μ)ᵀΣinv(x-μ) within the rectangle a .≤ x .≤ b.
+    x0 = _rectmin(a, b, μ, Σinv)
+    fmax = (x0 - μ)' * Σinv * (x0 - μ)
 
     num, errn = _integrate(f, a, b, μ, Σinv; H=fmax)
     den, errd = _integrate(   a, b, μ, Σinv; H=fmax)
