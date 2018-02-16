@@ -1,3 +1,7 @@
+# FIXME: This code does not work very well
+# The problem is that if the ellipse is very skewed, I can miss the peak.
+
+
 """
 <f> under multivariate normal
 """
