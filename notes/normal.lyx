@@ -1,5 +1,5 @@
-#LyX 2.2 created this file. For more info see http://www.lyx.org/
-\lyxformat 508
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
 \begin_document
 \begin_header
 \save_transient_properties true
@@ -21,6 +21,8 @@
 \font_osf false
 \font_sf_scale 100 100
 \font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -49,6 +51,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 1
+\use_minted 0
 \index Index
 \shortcut idx
 \color #008000
@@ -57,7 +60,10 @@
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
-\quotes_language english
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
@@ -148,9 +154,9 @@ Numerical evaluation
 \begin_layout Standard
 Let us define the functions:
 \begin_inset Formula 
-\[
-F_{1}\left(x,y\right)=\frac{\mathrm{e}^{-x^{2}}-\mathrm{e}^{-y^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)},\quad F_{2}\left(x,y\right)=\frac{x\mathrm{e}^{-x^{2}}-y\mathrm{e}^{-y^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)}
-\]
+\begin{equation}
+F_{1}\left(x,y\right)=\frac{\mathrm{e}^{-x^{2}}-\mathrm{e}^{-y^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)},\quad F_{2}\left(x,y\right)=\frac{x\mathrm{e}^{-x^{2}}-y\mathrm{e}^{-y^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)}\label{eq:F1F2}
+\end{equation}
 
 \end_inset
 
@@ -167,7 +173,7 @@ The problem arises when
 \begin_inset Formula $\pm1$
 \end_inset
 
-, but typically their difference itself is very small.
+, but their difference is very small.
  Subtraction of two numbers that are both large relative to their difference
  is a classic source of floating-point errors (known as 
 \emph on
@@ -202,7 +208,7 @@ The functions
  Using these, we can make sure that the error function difference is never
  catastrophic.
  Let 
-\begin_inset Formula $\epsilon=\mathrm{e}^{x^{2}-y^{2}}$
+\begin_inset Formula $\Delta=\mathrm{e}^{x^{2}-y^{2}}$
 \end_inset
 
 .
@@ -212,9 +218,9 @@ The functions
  & F_{1}\left(x,y\right) &  & F_{2}\left(x,y\right)\\
  & =F_{1}\left(y,x\right), &  & =F_{2}\left(y,x\right), &  & \text{if }\left|x\right|>\left|y\right|\\
  & =P_{1}\left(x,y-x\right), &  & =P_{2}\left(x,y-x\right), &  & \text{if }\left|x-y\right|<10^{-7}\\
- & =\frac{1-\epsilon}{\epsilon\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & =\frac{x-y\epsilon}{\epsilon\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & \text{if }x,y\le0\\
- & =\frac{1-\epsilon}{\mathrm{erfcx}\left(x\right)-\epsilon\mathrm{erfcx}\left(y\right)} &  & =\frac{x-y\epsilon}{\mathrm{erfcx}\left(x\right)-\epsilon\mathrm{erfcx}\left(y\right)} &  & \text{if }x,y\ge0\\
- & =\frac{\left(1-\epsilon\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & =\frac{\left(x-y\epsilon\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & \text{otherwise}
+ & =\frac{1-\Delta}{\Delta\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & =\frac{x-y\Delta}{\Delta\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & \text{if }x,y\le0\\
+ & =\frac{1-\Delta}{\mathrm{erfcx}\left(x\right)-\Delta\mathrm{erfcx}\left(y\right)} &  & =\frac{x-y\Delta}{\mathrm{erfcx}\left(x\right)-\Delta\mathrm{erfcx}\left(y\right)} &  & \text{if }x,y\ge0\\
+ & =\frac{\left(1-\Delta\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & =\frac{\left(x-y\Delta\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & \text{otherwise}
 \end{align*}
 
 \end_inset
@@ -228,10 +234,10 @@ When
 \end_inset
 
  in powers of 
-\begin_inset Formula $\epsilon$
+\begin_inset Formula $\epsilon=y-x$
 \end_inset
 
-,
+ to fourth-order,
 \begin_inset Formula 
 \begin{align*}
 P_{1}\left(x,\epsilon\right) & =\sqrt{\pi}x+\frac{1}{2}\sqrt{\pi}\epsilon-\frac{1}{6}\sqrt{\pi}x\epsilon^{2}-\frac{1}{12}\sqrt{\pi}\epsilon^{3}+\frac{1}{90}\sqrt{\pi}x\left(x^{2}+1\right)\epsilon^{4}\\
@@ -244,11 +250,99 @@ P_{2}\left(x,\epsilon\right) & =\frac{1}{2}\sqrt{\pi}\left(2x^{2}-1\right)+\sqrt
 \end_layout
 
 \begin_layout Section*
+Infinite arguments
+\end_layout
+
+\begin_layout Standard
+The limit of Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:F1F2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ as 
+\begin_inset Formula $y\rightarrow\pm\infty$
+\end_inset
+
+ is a well-defined function of 
+\begin_inset Formula $x$
+\end_inset
+
+,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+F_{1}\left(x,\pm\infty\right)=\frac{\pm1}{\mathrm{erfcx}\left(\pm x\right)},\qquad F_{2}\left(x,\pm\infty\right)=\frac{\pm x}{\mathrm{erfcx}\left(\pm x\right)}\label{eq:F1F2-inf}
+\end{equation}
+
+\end_inset
+
+We define 
+\begin_inset Formula $F_{i}\left(\infty,\pm\infty\right)=\lim_{x\rightarrow\infty}F_{i}\left(x,\pm\infty\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $F_{i}\left(-\infty,\pm\infty\right)=\lim_{x\rightarrow-\infty}F_{i}\left(x,\pm\infty\right)$
+\end_inset
+
+.
+ Consistent with these definitions, we use Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:F1F2-inf"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ to evaluate 
+\begin_inset Formula $F_{1}\left(x,\pm\infty\right)$
+\end_inset
+
+ for all 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $F_{2}\left(x,\pm\infty\right)$
+\end_inset
+
+ for all 
+\begin_inset Formula $-\infty<x<\infty$
+\end_inset
+
+.
+ Finally, 
+\begin_inset Formula $F_{2}\left(-\infty,\infty\right)=F_{2}\left(\infty,-\infty\right)=0$
+\end_inset
+
+, while 
+\begin_inset Formula $F_{2}\left(\infty,\infty\right)=F_{2}\left(-\infty,-\infty\right)=\infty$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section*
 Mean and variance
 \end_layout
 
 \begin_layout Standard
-Finally observe that,
+From 
+\begin_inset Formula $F_{i}\left(x,y\right)$
+\end_inset
+
+, we evaluate the mean and variance of the truncated normal distribution
+ as follows:
 \end_layout
 
 \begin_layout Standard
