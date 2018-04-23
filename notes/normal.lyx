@@ -285,11 +285,20 @@ F_{1}\left(x,\pm\infty\right)=\frac{\pm1}{\mathrm{erfcx}\left(\pm x\right)},\qqu
 \end_inset
 
 We define 
-\begin_inset Formula $F_{i}\left(\infty,\pm\infty\right)=\lim_{x\rightarrow\infty}F_{i}\left(x,\pm\infty\right)$
+\begin_inset Formula $F_{i}\left(\infty,\pm\infty\right)=\lim_{x\rightarrow\infty}\lim_{y\rightarrow\pm\infty}F_{i}\left(x,y\right)$
 \end_inset
 
  and 
-\begin_inset Formula $F_{i}\left(-\infty,\pm\infty\right)=\lim_{x\rightarrow-\infty}F_{i}\left(x,\pm\infty\right)$
+\begin_inset Formula $F_{i}\left(-\infty,\pm\infty\right)=\lim_{x\rightarrow-\infty}\lim_{y\rightarrow\pm\infty}F_{i}\left(x,y\right)$
+\end_inset
+
+.
+ That is, we take the limit on 
+\begin_inset Formula $y$
+\end_inset
+
+ first, then on 
+\begin_inset Formula $x$
 \end_inset
 
 .
