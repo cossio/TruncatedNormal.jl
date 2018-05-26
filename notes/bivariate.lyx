@@ -1,0 +1,636 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Moments of the truncated bivariate Normal distribution
+\end_layout
+
+\begin_layout Standard
+We consider a standardized normal bivariate distribution of the form:
+\begin_inset Formula 
+\[
+\mathcal{N}\left(\mathbf{x};\rho\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{\mathcal{\mathcal{H}\left(\mathbf{x}\right)}}{2\left(1-\rho^{2}\right)}\right),\quad\mathcal{H}\left(\mathbf{x}\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $-1<\rho<1$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{x}=\left(x_{1},x_{2}\right)$
+\end_inset
+
+.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+standardization
+\begin_inset Quotes erd
+\end_inset
+
+ means that 
+\begin_inset Formula $\left\langle x_{i}\right\rangle _{\mathcal{N}}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\langle x_{i}^{2}\right\rangle _{\mathcal{N}}=1$
+\end_inset
+
+ for 
+\begin_inset Formula $i=1,2$
+\end_inset
+
+.
+ Any normal bivariate distribution can be brought into this form by a translatio
+n and scaling of the variables 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+.
+ Define a rectangular domain 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+, with vertices at 
+\begin_inset Formula $\mathbf{a}=\left(a_{1},a_{2}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}=\left(b_{1},b_{2}\right)$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)=\left\{ \mathbf{x}\in\mathbb{R}^{2}:\mathbf{a}\le\mathbf{x}\le\mathbf{b}\right\} 
+\]
+
+\end_inset
+
+where the vector inequalities are component-wise and we assume that 
+\begin_inset Formula $\mathbf{a}\le\mathbf{b}$
+\end_inset
+
+.
+ The bivariate density truncated to 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ is given by:
+\begin_inset Formula 
+\[
+\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)=\frac{1}{Z\left(\mathbf{a},\mathbf{b},\rho\right)}\begin{cases}
+\mathcal{N}\left(\mathbf{x};\rho\right) & \mathbf{a}\le\mathbf{x}\le\mathbf{b}\\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $Z$
+\end_inset
+
+ is a normalization constant, given by:
+\begin_inset Formula 
+\[
+Z\left(\mathbf{a},\mathbf{b},\rho\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\ \mathcal{N}\left(\mathbf{x};\rho\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The levelsets 
+\begin_inset Formula $\mathcal{N}\left(\mathbf{x};\rho\right)$
+\end_inset
+
+ are the ellipses 
+\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)=c$
+\end_inset
+
+ for some constant 
+\begin_inset Formula $c\ge0$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $\rho<0$
+\end_inset
+
+ (
+\begin_inset Formula $\rho>0$
+\end_inset
+
+) the major (minor) axis of this ellipse is the line 
+\begin_inset Formula $x_{1}-x_{2}=0$
+\end_inset
+
+ and the minor (major) axis is the line 
+\begin_inset Formula $x_{1}+x_{2}=0$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $\rho=0$
+\end_inset
+
+ the ellipse becomes a circle.
+\end_layout
+
+\begin_layout Section
+The maximum of 
+\begin_inset Formula $\mathcal{N}\left(\mathbf{x},\rho\right)$
+\end_inset
+
+ within 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we want to locate the point 
+\begin_inset Formula $\mathbf{x}^{*}\in\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)$
+\end_inset
+
+ is maximized.
+ Equivalently, we seek to minimize 
+\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}$
+\end_inset
+
+ within 
+\begin_inset Formula $\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)$
+\end_inset
+
+ is concave everywhere because the Hessian
+\begin_inset Formula 
+\[
+\nabla^{2}\mathcal{H}=\left[\begin{array}{cc}
+2 & -2\rho\\
+-2\rho & 2
+\end{array}\right]
+\]
+
+\end_inset
+
+has the positive eigenvalues 
+\begin_inset Formula $2\left(1\pm\rho\right)$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\mathbf{0}$
+\end_inset
+
+ is the global minimum of 
+\begin_inset Formula $\mathcal{H}$
+\end_inset
+
+, it follows that 
+\begin_inset Formula $\mathbf{x}^{*}=\mathbf{0}$
+\end_inset
+
+ if 
+\begin_inset Formula $\mathbf{a}\le\mathbf{0}\le\mathbf{b}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\mathbf{0}\notin\mathcal{D}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{x}^{*}$
+\end_inset
+
+ must lie in the boundary of 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ and the gradient of 
+\begin_inset Formula $\mathcal{H}$
+\end_inset
+
+ at 
+\begin_inset Formula $\mathbf{x}^{*}$
+\end_inset
+
+ must be such that 
+\begin_inset Formula $\Delta\mathbf{x}\cdot\nabla\mathcal{H}\left(\mathbf{x}^{*}\right)\ge0$
+\end_inset
+
+ for all 
+\begin_inset Formula $\Delta\mathbf{x}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{x}^{*}+\Delta\mathbf{x}\in\mathcal{D}$
+\end_inset
+
+.
+ Since
+\begin_inset Formula 
+\[
+\frac{1}{2}\nabla\mathcal{H}=\left(x_{1}-\rho x_{2},x_{2}-\rho_{1}\right)
+\]
+
+\end_inset
+
+this condition translates into:
+\begin_inset Formula 
+\[
+x_{1}^{*}\Delta x_{1}+x_{2}^{*}\Delta x_{2}\ge\rho x_{1}^{*}\Delta x_{2}+\rho x_{2}^{*}\Delta x_{1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Delta\mathbf{x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $\mathbf{x}^{*}=\mathbf{a}$
+\end_inset
+
+, then 
+\begin_inset Formula $a_{1}-\rho a_{2}\ge0$
+\end_inset
+
+ and 
+\begin_inset Formula $a_{2}-\rho a_{1}\ge0$
+\end_inset
+
+ must hold simultaneously (the gradient of 
+\begin_inset Formula $\mathcal{H}$
+\end_inset
+
+ must point to the interior of 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+and the gradient of 
+\begin_inset Formula $x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}$
+\end_inset
+
+ must be parallel 
+\end_layout
+
+\begin_layout Standard
+In this case it is possible to restrict ourselves to the case 
+\begin_inset Formula $\mathbf{b}\ge0$
+\end_inset
+
+, since this can always be achieved by 
+\begin_inset Formula $90^{\circ}$
+\end_inset
+
+ rotations.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $ $
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that the ellipse 
+\begin_inset Formula $x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}=\text{const}$
+\end_inset
+
+ is tangent to the line 
+\begin_inset Formula $x_{1}=a_{1}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula 
+\[
+x_{1}=\rho x_{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+x_{2}=\rho x_{1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula $a_{1}+x_{2}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+a_{1}+x_{2}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\argmin_{\mathbf{a}\le\mathbf{x}\le\mathbf{b}}\left(x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}\right)=\begin{cases}
+\mathbf{0} & \mathbf{a}\le\mathbf{0}\le\mathbf{b}\\
+\mathbf{a} & \rho\ge0\land\mathbf{b}\ge\mathbf{a}\ge\mathbf{0}\\
+ & \rho\ge0\land\mathbf{a}\le\mathbf{b}\le\mathbf{0}
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Bivariate case
+\end_layout
+
+\begin_layout Standard
+We restrict our analysis to the 
+\begin_inset Formula $N=2$
+\end_inset
+
+ dimensional case.
+\end_layout
+
+\begin_layout Standard
+The point 
+\begin_inset Formula $\mathbf{x}^{*}\in\mathcal{D}$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathcal{N}\left(\mathbf{x};\mathbf{A}\right)$
+\end_inset
+
+ is maximized is either of:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{x}^{*}=\mathbf{0}$
+\end_inset
+
+, if 
+\begin_inset Formula $\mathbf{lb}\le\mathbf{0}\le\mathbf{ub}$
+\end_inset
+
+; or
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{x}^{*}$
+\end_inset
+
+ is a vertex of 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+, or
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $x_{i}\in\left\{ a_{i},b_{i}\right\} $
+\end_inset
+
+ for some 
+\begin_inset Formula $i$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{x}^{*}\in\partial\mathcal{D}$
+\end_inset
+
+ with 
+\begin_inset Formula $x_{i}\in\left\{ a_{i},b_{i}\right\} $
+\end_inset
+
+ for all 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula 
+\[
+\frac{\partial}{\partial x_{k}}\left(\frac{1}{2}\mathbf{x}^{T}\mathbf{B}\mathbf{x}\right)=\frac{1}{2}\frac{\partial}{\partial x_{k}}\left(\sum_{i,j}B_{ij}x_{i}x_{j}\right)=B_{kk}x_{k}+\sum_{i,i\ne k}B_{ik}x_{i}+\sum_{j,j\ne k}B_{kj}x_{j}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By scaling the axes if necessary, it is possible to set 
+\begin_inset Formula $A_{ii}=1$
+\end_inset
+
+ without loss of generality.
+ Then:
+\begin_inset Formula 
+\[
+\mathbf{x}^{T}\Sigma^{-1}\mathbf{x}=\sum_{i}x_{i}^{2}+\sum_{i\ne j}A_{ij}x_{i}x_{j}
+\]
+
+\end_inset
+
+Since 
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ is symmetric positive definite, a decomposition of the form 
+\begin_inset Formula $\bm{\Sigma}=\mathbf{U}^{T}\bm{\Lambda}\mathbf{U}$
+\end_inset
+
+ exists, where 
+\begin_inset Formula $\bm{\Lambda}$
+\end_inset
+
+ is a diagonal matrix (the eigenvalues) and 
+\begin_inset Formula $\mathbf{U}$
+\end_inset
+
+ (the eigenvectors) can be chosen so that 
+\begin_inset Formula $\mathbf{U}^{T}\mathbf{U}=\mathbf{I}$
+\end_inset
+
+.
+ Moreover the eigenvalues 
+\begin_inset Formula $\Lambda_{ii}>0$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\Sigma^{-1}=\mathbf{U}^{T}\bm{\Lambda}^{-1}\mathbf{U}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Bivariate case
+\end_layout
+
+\begin_layout Standard
+In particular, in the bidimensional case, we have 
+\begin_inset Formula $\mathbf{x}^{T}\Sigma^{-1}\mathbf{x}=x_{1}^{2}+x_{2}^{2}+\rho x_{1}x_{2}$
+\end_inset
+
+, where 
+\begin_inset Formula $-1<\rho=A_{12}<1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathbf{x}^{T}\Sigma^{-1}\mathbf{x}=\mathbf{x}^{T}\mathbf{U}^{T}\bm{\Lambda}^{-1}\mathbf{U}\mathbf{x}=
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+2\Sigma^{-1}\mathbf{x}^{*}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\mathrm{tr}\Sigma^{-1}\mathbf{x}^{*}=\left(\Sigma^{-1}\right)_{11}x_{1}^{*}+\left(\Sigma^{-1}\right)_{12}x_{2}^{*}+\left(\Sigma^{-1}\right)_{12}x_{1}^{*}+\left(\Sigma^{-1}\right)_{22}x_{2}^{*}=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
