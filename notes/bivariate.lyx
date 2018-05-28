@@ -463,5 +463,19 @@ Therefore it suffices to consider the truncated normal distribution with
 .
 \end_layout
 
+\begin_layout Standard
+In particular
+\begin_inset Formula 
+\begin{align*}
+\left\langle x_{i}\right\rangle _{\mathcal{P}} & =\mu_{i}+\sqrt{\Sigma_{ii}}\left\langle \xi_{i}\right\rangle _{\mathcal{P}} & i=1,2\\
+\left\langle x_{i}^{2}\right\rangle _{\mathcal{P}} & =\mu_{i}^{2}+2\mu_{i}\sqrt{\Sigma_{ii}}\left\langle \xi_{i}\right\rangle _{\mathcal{P}}+\Sigma_{ii}\left\langle \xi_{i}^{2}\right\rangle _{\mathcal{P}} & i=1,2\\
+\left\langle x_{1}x_{2}\right\rangle _{\mathcal{P}} & =\mu_{1}\mu_{2}+\mu_{1}\sqrt{\Sigma_{22}}\left\langle \xi_{2}\right\rangle _{\mathcal{P}}+\mu_{2}\sqrt{\Sigma_{11}}\left\langle \xi_{1}\right\rangle _{\mathcal{P}}+\sqrt{\Sigma_{11}\Sigma_{22}}\left\langle \xi_{1}\xi_{2}\right\rangle _{\mathcal{P}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document

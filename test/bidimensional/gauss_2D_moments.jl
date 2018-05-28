@@ -1,6 +1,6 @@
 using Base.Test
 
-import TruncatedNormal: gauss2Dmoment1, gauss2Dmoment2, gauss2Dmoment11, gauss2Dmoment22, gauss2Dmoment12
+import TruncatedNormal: gauss2Dmoment1, gauss2Dmoment2, gauss2Dmoment11, gauss2Dmoment22, gauss2Dmoment12, gauss2Dtruncstats
 
 @testset "gauss2Dmoments" begin
     a = (-0.5, 0.2); b = (-0.2, 1.); 
@@ -44,4 +44,18 @@ end
     @test gauss2Dmoment11(μ, Σ, a, b) ≈ 1.439923980527374e4 rtol=1e-7
     @test gauss2Dmoment22(μ, Σ, a, b) ≈ 4.000082638968676e4 rtol=1e-7
     @test gauss2Dmoment12(μ, Σ, a, b) ≈ 2.399961439547430e4 rtol=1e-7
+end
+
+
+@testset "gauss2Dtruncstats" begin
+    a = (-0.5, 0.2); b = (-0.2, 1.);
+    μ = (0.2, -0.1); Σ = [1.2 -0.1; -0.1 2.3]
+
+    tμ, tΣ = gauss2Dtruncstats(μ, Σ, a, b)
+
+    @test tμ[1] ≈ gauss2Dmoment1(μ, Σ, a, b)
+    @test tμ[2] ≈ gauss2Dmoment2(μ, Σ, a, b)
+    @test tΣ[1,1] ≈ gauss2Dmoment11(μ, Σ, a, b)
+    @test tΣ[2,2] ≈ gauss2Dmoment22(μ, Σ, a, b)
+    @test tΣ[1,2] ≈ gauss2Dmoment12(μ, Σ, a, b)
 end

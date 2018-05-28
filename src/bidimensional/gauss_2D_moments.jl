@@ -52,3 +52,30 @@ end
 function gauss2Dmoment12(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{Real,Real}, b::Tuple{Real,Real}) where {T <: Real}
     gauss2Dmoment(μ, Σ, a, b, 1, 1)
 end
+
+"Returns the truncated μ (means) and Σ (covariance matrix)"
+function gauss2Dtruncstats(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{Real,Real}, b::Tuple{Real,Real}) where {T <: Real}
+
+    @assert size(Σ) == (2,2) && Σ[1,2] == Σ[2,1]
+
+    α = ((a[1] - μ[1]) / √Σ[1,1], (a[2] - μ[2]) / √Σ[2,2])
+    β = ((b[1] - μ[1]) / √Σ[1,1], (b[2] - μ[2]) / √Σ[2,2])
+    ρ = Σ[1,2] / √(Σ[1,1] * Σ[2,2])
+    @assert -1 < ρ < 1
+
+    Z = _gauss2Dtrunc_partition(ρ, α, β)
+
+    ξ1 = _gauss2Dmoment_nonorm(ρ, α, β, 1, 0) / Z
+    ξ2 = _gauss2Dmoment_nonorm(ρ, α, β, 0, 1) / Z
+    ξ11 = _gauss2Dmoment_nonorm(ρ, α, β, 2, 0) / Z
+    ξ22 = _gauss2Dmoment_nonorm(ρ, α, β, 0, 2) / Z
+    ξ12 = _gauss2Dmoment_nonorm(ρ, α, β, 1, 1) / Z
+
+    tμ1 = μ[1] + √Σ[1,1] * ξ1
+    tμ2 = μ[2] + √Σ[2,2] * ξ2
+    tΣ11 = μ[1]^2 + 2μ[1] * √Σ[1,1] * ξ1 + Σ[1,1] * ξ11
+    tΣ22 = μ[2]^2 + 2μ[2] * √Σ[2,2] * ξ2 + Σ[2,2] * ξ22
+    tΣ12 = μ[1]μ[2] + μ[1] * √Σ[2,2] * ξ2 + μ[2] * √Σ[1,1] * ξ1 + √(Σ[1,1]Σ[2,2]) * ξ12
+    
+    return (tμ1,tμ2), [tΣ11 tΣ12; tΣ12 tΣ22]
+end
