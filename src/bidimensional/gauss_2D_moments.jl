@@ -79,3 +79,11 @@ function gauss2Dtruncstats(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple
     
     return (tμ1,tμ2), [tΣ11 tΣ12; tΣ12 tΣ22]
 end
+
+
+function gauss2Dtruncstats(μ::Vector{T}, Σ::AbstractMatrix{T}, a::Vector{T}, b::Vector{T}) where {T <: Real}
+    @assert length(μ) == length(a) == length(b) == 2
+    @assert size(Σ) == (2,2)
+    tμ, tΣ = gauss2Dtruncstats((μ[1],μ[2]), Σ, (a[1],a[2]), (b[1],b[2]))
+    return [tμ[1], tμ[2]], tΣ
+end

@@ -58,4 +58,35 @@ end
     @test tΣ[1,1] ≈ gauss2Dmoment11(μ, Σ, a, b)
     @test tΣ[2,2] ≈ gauss2Dmoment22(μ, Σ, a, b)
     @test tΣ[1,2] ≈ gauss2Dmoment12(μ, Σ, a, b)
+
+    srand(1)
+
+    for repetition = 1 : 1000
+        a = (2rand() - 1, 2rand() - 1); b = (a[1] + rand(), a[2] + rand());
+        μ = (2rand() - 1, 2rand() - 1); 
+        Σ = rand(2,2); Σ[1,2] = Σ[2,1] = 2Σ[1,2] - 1
+        ρ = Σ[1,2] / √(Σ[1,1] * Σ[2,2])
+        if -0.99 < ρ < 0.99  # this thing breaks down if ρ ≈ ±1
+            tμ, tΣ = gauss2Dtruncstats(μ, Σ, a, b)           
+            @test tμ[1] ≈ gauss2Dmoment1(μ, Σ, a, b)    #rtol=1e-4
+            @test tμ[2] ≈ gauss2Dmoment2(μ, Σ, a, b)    #rtol=1e-4
+            @test tΣ[1,1] ≈ gauss2Dmoment11(μ, Σ, a, b) #rtol=1e-4
+            @test tΣ[2,2] ≈ gauss2Dmoment22(μ, Σ, a, b) #rtol=1e-4
+            @test tΣ[1,2] ≈ gauss2Dmoment12(μ, Σ, a, b) #rtol=1e-4
+        end
+    end
+end
+
+
+@testset "gauss2Dtruncstats (vector)" begin
+    a = [-0.5, 0.2]; b = [-0.2, 1.];
+    μ = [0.2, -0.1]; Σ = [1.2 -0.1; -0.1 2.3]
+
+    tμ, tΣ = gauss2Dtruncstats(μ, Σ, a, b)
+
+    @test tμ[1] ≈ gauss2Dmoment1((μ[1], μ[2]), Σ, (a[1], a[2]), (b[1], b[2]))
+    @test tμ[2] ≈ gauss2Dmoment2((μ[1], μ[2]), Σ, (a[1], a[2]), (b[1], b[2]))
+    @test tΣ[1,1] ≈ gauss2Dmoment11((μ[1], μ[2]), Σ, (a[1], a[2]), (b[1], b[2]))
+    @test tΣ[2,2] ≈ gauss2Dmoment22((μ[1], μ[2]), Σ, (a[1], a[2]), (b[1], b[2]))
+    @test tΣ[1,2] ≈ gauss2Dmoment12((μ[1], μ[2]), Σ, (a[1], a[2]), (b[1], b[2]))
 end
