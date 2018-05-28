@@ -4,4 +4,6 @@ include("moments.jl")
 #include("_integrate.jl")
 #include("multivariate.jl")
 
-include("bidimensional/ellipse_rect_min_2D.jl")
+include("bidimensional/_ellipse_rect_minmax_2D.jl")
+include("bidimensional/_integrate_gauss_2D.jl")
+include("bidimensional/gauss_2D_moments.jl")

@@ -11,6 +11,9 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \end_preamble
 \use_default_options true
+\begin_modules
+logicalmkup
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -86,11 +89,15 @@
 Moments of the truncated bivariate Normal distribution
 \end_layout
 
+\begin_layout Section
+Introduction
+\end_layout
+
 \begin_layout Standard
 We consider a standardized normal bivariate distribution of the form:
 \begin_inset Formula 
 \[
-\mathcal{N}\left(\mathbf{x};\rho\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{\mathcal{\mathcal{H}\left(\mathbf{x}\right)}}{2\left(1-\rho^{2}\right)}\right),\quad\mathcal{H}\left(\mathbf{x}\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}
+\mathcal{N}\left(\mathbf{x};\rho\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{H\left(\mathbf{x}\right)}{2\left(1-\rho^{2}\right)}\right),\quad H\left(\mathbf{x}\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}
 \]
 
 \end_inset
@@ -124,6 +131,10 @@ standardization
 \begin_inset Formula $i=1,2$
 \end_inset
 
+, while 
+\begin_inset Formula $\rho=\left\langle x_{1}x_{2}\right\rangle _{\mathcal{N}}$
+\end_inset
+
 .
  Any normal bivariate distribution can be brought into this form by a translatio
 n and scaling of the variables 
@@ -131,7 +142,156 @@ n and scaling of the variables
 \end_inset
 
 .
- Define a rectangular domain 
+ Note that 
+\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)$
+\end_inset
+
+ is concave everywhere because the Hessian
+\begin_inset Formula 
+\[
+\nabla^{2}H=\left[\begin{array}{cc}
+2 & -2\rho\\
+-2\rho & 2
+\end{array}\right]
+\]
+
+\end_inset
+
+has the positive eigenvalues 
+\begin_inset Formula $2\left(1\pm\rho\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename ../fig/ellipse.pdf
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ellipse"
+
+\end_inset
+
+The levelsets 
+\begin_inset Formula $H\left(\mathbf{x}\right)=c$
+\end_inset
+
+ are ellipses.
+ The curve shown has 
+\begin_inset Formula $c=0.5$
+\end_inset
+
+, 
+\begin_inset Formula $\rho=-0.65$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The levelsets of 
+\begin_inset Formula $\mathcal{N}\left(\mathbf{x};\rho\right)$
+\end_inset
+
+ are the ellipses 
+\begin_inset Formula $H\left(\mathbf{x}\right)=c$
+\end_inset
+
+ for some constant 
+\begin_inset Formula $c\ge0$
+\end_inset
+
+.
+ The axes of this ellipse are the lines 
+\begin_inset Formula $x_{1}\pm x_{2}=0$
+\end_inset
+
+ with semi-lenghts 
+\begin_inset Formula $\sqrt{c/\left(1\pm\rho\right)}$
+\end_inset
+
+, respectively (Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ellipse"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ Let 
+\begin_inset Formula $\mathfrak{f}=\sqrt{\left|\rho\right|c/\left(1-\rho^{2}\right)}$
+\end_inset
+
+.
+ The focci lie at a distance 
+\begin_inset Formula $\sqrt{2}\mathfrak{f}$
+\end_inset
+
+ from the origin.
+ If 
+\begin_inset Formula $\rho<0$
+\end_inset
+
+ the focci are at the coordinates 
+\begin_inset Formula $x_{1}=-x_{2}=\pm\mathfrak{f}$
+\end_inset
+
+, and if 
+\begin_inset Formula $\rho>0$
+\end_inset
+
+ the focci are at the coordinates 
+\begin_inset Formula $x_{1}=x_{2}=\pm\mathfrak{f}$
+\end_inset
+
+.
+ The ellipse 
+\begin_inset Formula $H\left(\mathbf{x}\right)=c$
+\end_inset
+
+ is the locus of points whose distances to the focci add up to 
+\begin_inset Formula $2\sqrt{c/\left(1-\left|\rho\right|\right)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Define a rectangular domain 
 \begin_inset Formula $\mathcal{D}$
 \end_inset
 
@@ -187,50 +347,258 @@ Z\left(\mathbf{a},\mathbf{b},\rho\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int
 \end_layout
 
 \begin_layout Standard
-The levelsets 
-\begin_inset Formula $\mathcal{N}\left(\mathbf{x};\rho\right)$
+In this note we want to compute the moments:
+\begin_inset Formula 
+\begin{align*}
+\left\langle x_{i}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)x_{i},\quad i=1,2\\
+\left\langle x_{i}^{2}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)x_{i}^{2},\quad i=1,2\\
+\left\langle x_{1}x_{2}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)x_{1}x_{2}
+\end{align*}
+
 \end_inset
 
- are the ellipses 
-\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)=c$
-\end_inset
 
- for some constant 
-\begin_inset Formula $c\ge0$
-\end_inset
-
-.
- For 
-\begin_inset Formula $\rho<0$
-\end_inset
-
- (
-\begin_inset Formula $\rho>0$
-\end_inset
-
-) the major (minor) axis of this ellipse is the line 
-\begin_inset Formula $x_{1}-x_{2}=0$
-\end_inset
-
- and the minor (major) axis is the line 
-\begin_inset Formula $x_{1}+x_{2}=0$
-\end_inset
-
-.
- For 
-\begin_inset Formula $\rho=0$
-\end_inset
-
- the ellipse becomes a circle.
 \end_layout
 
 \begin_layout Section
-The maximum of 
-\begin_inset Formula $\mathcal{N}\left(\mathbf{x},\rho\right)$
+General parameters
+\end_layout
+
+\begin_layout Standard
+Consider now the general truncated Gaussian with a positive semi-definite
+ covariance matrix 
+\begin_inset Formula $\Sigma$
+\end_inset
+
+ and means 
+\begin_inset Formula $\mu$
+\end_inset
+
+.
+ The change of variables:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\xi_{i}=\frac{x_{i}-\mu_{i}}{\sqrt{\Sigma_{ii}}}
+\]
+
+\end_inset
+
+leads to the previously considered distribution, with non-truncated moments
+ given by:
+\begin_inset Formula 
+\[
+\left\langle \xi_{i}\right\rangle _{\mathcal{N}}=0,\quad\left\langle \xi_{i}^{2}\right\rangle _{\mathcal{N}}=1,\quad i=1,2
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\rho=\left\langle \xi_{1}\xi_{2}\right\rangle _{\mathcal{N}}=\frac{\Sigma_{12}}{\sqrt{\Sigma_{11}\Sigma_{22}}}
+\]
+
+\end_inset
+
+If the original variables 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $a_{i}\le x_{i}\le b_{i}$
+\end_inset
+
+ then the 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\alpha_{i}\le\xi_{i}\le\beta_{i}$
+\end_inset
+
+, where
+\begin_inset Formula 
+\[
+\alpha_{i}=\frac{a_{i}-\mu_{i}}{\sqrt{\Sigma_{ii}}},\qquad\beta_{i}=\frac{b_{i}-\mu_{i}}{\sqrt{\Sigma_{ii}}}
+\]
+
+\end_inset
+
+Using the methods described below, we can compute the truncated moments
+ of 
+\begin_inset Formula $\xi_{i}$
+\end_inset
+
+.
+ Then:
+\begin_inset Formula 
+\begin{align*}
+\left\langle x_{1}^{m}x_{2}^{n}\right\rangle _{\mathcal{P}} & =\left\langle \left(\sqrt{\Sigma_{11}}\xi_{1}+\mu_{1}\right)^{m}\left(\sqrt{\Sigma_{11}}\xi_{2}+\mu_{2}\right)^{n}\right\rangle _{\mathcal{P}}\\
+ & =\sum_{i=0}^{m}\sum_{j=0}^{n}\binom{m}{i}\binom{n}{j}\mu_{1}^{m-i}\mu_{2}^{n-j}\Sigma_{11}^{i/2}\Sigma_{22}^{j/2}\left\langle \xi_{1}^{i}\xi_{2}^{j}\right\rangle _{\mathcal{P}}
+\end{align*}
+
+\end_inset
+
+Therefore it suffices to consider the truncated normal distribution with
+ 
+\begin_inset Formula $\mu_{i}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\Sigma_{ii}=1$
+\end_inset
+
+, 
+\begin_inset Formula $\Sigma_{12}=\Sigma_{21}=\rho$
+\end_inset
+
+, which we do in the rest of this note.
+\end_layout
+
+\begin_layout Section
+Computation
+\end_layout
+
+\begin_layout Standard
+If we define:
+\begin_inset Formula 
+\[
+\xi_{1}=\sqrt{\frac{1-\rho}{2}}\left(x_{1}+x_{2}\right),\qquad\xi_{2}=\sqrt{\frac{1+\rho}{2}}\left(x_{1}-x_{2}\right)
+\]
+
+\end_inset
+
+it follows that
+\begin_inset Formula 
+\[
+\xi_{1}^{2}+\xi_{2}^{2}=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}=H\left(\mathbf{x}\right)
+\]
+
+\end_inset
+
+The contour lines 
+\begin_inset Formula $H\left(\mathbf{x}\right)=c$
+\end_inset
+
+ can be parameterized as 
+\begin_inset Formula $\xi_{1}=c\cos\theta$
+\end_inset
+
+, 
+\begin_inset Formula $\xi_{2}=c\sin\theta$
+\end_inset
+
+, or equivalently,
+\begin_inset Formula 
+\[
+x_{1}=\frac{c\cos\theta}{\sqrt{2\left(1-\rho\right)}}+\frac{c\sin\theta}{\sqrt{2\left(1+\rho\right)}},\qquad x_{2}=\frac{c\cos\theta}{\sqrt{2\left(1-\rho\right)}}-\frac{c\sin\theta}{\sqrt{2\left(1+\rho\right)}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\frac{c}{\sqrt{1-\rho^{2}}}\int_{\theta_{1}}^{\theta_{2}}\sqrt{1-\rho\cos\left(2\theta\right)}\mathrm{d}\theta
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\theta & =\pm\arccos\left[\frac{x\left(1+\rho\right)\pm\sqrt{c^{2}-\left(1-\rho^{2}\right)x^{2}}}{\sqrt{2}c}\sqrt{1-\rho}\right]
+\end{align*}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\Delta\theta
+\]
+
+\end_inset
+
+Note that 
+\begin_inset Formula $\frac{\mathrm{d}x_{1}}{\mathrm{d}\theta}=$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\xi_{1}=\cos\theta,\quad\xi_{2}=\sin\theta
+\]
+
+\end_inset
+
+Therefore
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathbf{x}^{*}=\left(x_{1}^{*},x_{2}^{*}\right)\in\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)$
+\end_inset
+
+ be the point that maximizes 
+\begin_inset Formula $\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)$
 \end_inset
 
  within 
-\begin_inset Formula $\mathcal{D}$
+\begin_inset Formula $\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)$
+\end_inset
+
+
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The point 
+\begin_inset Formula $\mathbf{x}^{*}$
+\end_inset
+
+ is computed by the function 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+ellipse_rect_min_2D
+\end_layout
+
+\end_inset
+
+.
+ It is simple but tedius so we don't explain it here.
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The ellipse 
+\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)=c$
+\end_inset
+
+ can be given parametrically as
+\begin_inset Formula 
+\[
+x_{1}=a\cosh\mu\cos\nu,\quad x_{2}=a\sinh\mu\sin\nu
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Without loss of generality we can assume that 
+\begin_inset Formula $\mathbf{x}^{*}$
 \end_inset
 
 
@@ -252,26 +620,6 @@ Now we want to locate the point
 
  within 
 \begin_inset Formula $\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)$
-\end_inset
-
-.
- Note that 
-\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)$
-\end_inset
-
- is concave everywhere because the Hessian
-\begin_inset Formula 
-\[
-\nabla^{2}\mathcal{H}=\left[\begin{array}{cc}
-2 & -2\rho\\
--2\rho & 2
-\end{array}\right]
-\]
-
-\end_inset
-
-has the positive eigenvalues 
-\begin_inset Formula $2\left(1\pm\rho\right)$
 \end_inset
 
 .
