@@ -13,7 +13,6 @@ import TruncatedNormal: _ellipse_rect_min_2D, _ellipse_rect_max_2D, _ellipse_qua
             y1 = a1 + (b1 - a1) * rand()
             y2 = a2 + (b2 - a2) * rand()
             @test _ellipse_quadratic(ρ, (x1, x2)) ≤ _ellipse_quadratic(ρ, (y1, y2))
-            #@test x1^2 + x2^2 - 2ρ * x1 * x2 ≤ y1^2 + y2^2 - 2ρ * y1 * y2
         end
     end
 end
@@ -30,7 +29,6 @@ end
             y1 = a1 + (b1 - a1) * rand()
             y2 = a2 + (b2 - a2) * rand()
             @test _ellipse_quadratic(ρ, (x1, x2)) ≥ _ellipse_quadratic(ρ, (y1, y2))
-            #@test x1^2 + x2^2 - 2ρ * x1 * x2 ≥ y1^2 + y2^2 - 2ρ * y1 * y2
         end
     end
 end

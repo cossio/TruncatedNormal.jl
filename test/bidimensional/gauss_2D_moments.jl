@@ -34,3 +34,14 @@ import TruncatedNormal: gauss2Dmoment1, gauss2Dmoment2, gauss2Dmoment11, gauss2D
     @test gauss2Dmoment12(μ, Σ, a, b) ≈ -0.20283420009833092
 end
 
+
+@testset "gauss2Dmoments, far into the tails" begin
+    a = (100, 200); b = (120, 230); 
+    μ = (0,0); Σ = [1 0.9; 0.9 1];
+    # the following values were obtained using matlab/sample_bivariate_trunc.m
+    @test gauss2Dmoment1(μ, Σ, a, b) ≈ 1.199968324383764e2  rtol=1e-7
+    @test gauss2Dmoment2(μ, Σ, a, b) ≈ 2.000020659528939e2  rtol=1e-7
+    @test gauss2Dmoment11(μ, Σ, a, b) ≈ 1.439923980527374e4 rtol=1e-7
+    @test gauss2Dmoment22(μ, Σ, a, b) ≈ 4.000082638968676e4 rtol=1e-7
+    @test gauss2Dmoment12(μ, Σ, a, b) ≈ 2.399961439547430e4 rtol=1e-7
+end
