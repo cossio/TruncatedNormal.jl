@@ -33,4 +33,4 @@ It works even if the truncation interval is far from the mode of the distributio
 
 # Bivariate truncated normal
 
-**Update 28 May 2018:** I added functions to compute the moments of the bivariate truncated normal. See `gauss2Dmoment`.
+**Update 28 May 2018:** I added functions to compute the moments of the bivariate truncated normal. See `gauss2Dmoment`, `gauss2Dtruncstats`.
