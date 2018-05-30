@@ -95,14 +95,14 @@ Miscellaneous notes about the computation of the moments of a truncated
 \end_layout
 
 \begin_layout Section
-Introduction
+Bivariate normal distribution
 \end_layout
 
 \begin_layout Standard
 We consider a standardized normal bivariate distribution of the form:
 \begin_inset Formula 
 \[
-\mathcal{N}\left(\mathbf{x};\rho\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{H\left(\mathbf{x}\right)}{2\left(1-\rho^{2}\right)}\right),\quad H\left(\mathbf{x}\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}
+\mathcal{N}\left(\mathbf{x};\rho\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{H\left(\mathbf{x};\rho\right)}{2\left(1-\rho^{2}\right)}\right)
 \]
 
 \end_inset
@@ -111,12 +111,19 @@ where
 \begin_inset Formula $-1<\rho<1$
 \end_inset
 
- and 
+, 
 \begin_inset Formula $\mathbf{x}=\left(x_{1},x_{2}\right)$
 \end_inset
 
-.
- The 
+ and
+\begin_inset Formula 
+\[
+H\left(\mathbf{x};\rho\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}
+\]
+
+\end_inset
+
+The 
 \begin_inset Quotes eld
 \end_inset
 
@@ -148,25 +155,29 @@ n and scaling of the variables
 
 .
  Note that 
-\begin_inset Formula $\mathcal{H}\left(\mathbf{x}\right)$
+\begin_inset Formula $H\left(\mathbf{x};\rho\right)$
 \end_inset
 
  is concave everywhere because the Hessian
 \begin_inset Formula 
 \[
-\nabla^{2}H=\left[\begin{array}{cc}
-2 & -2\rho\\
--2\rho & 2
+\frac{1}{2}\nabla_{\mathbf{x}}^{2}H=\left[\begin{array}{cc}
+1 & -\rho\\
+-\rho & 1
 \end{array}\right]
 \]
 
 \end_inset
 
-has the positive eigenvalues 
+has positive eigenvalues 
 \begin_inset Formula $2\left(1\pm\rho\right)$
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Levelsets
 \end_layout
 
 \begin_layout Standard
@@ -229,7 +240,7 @@ The levelsets of
 \end_inset
 
  are the ellipses 
-\begin_inset Formula $H\left(\mathbf{x}\right)=c$
+\begin_inset Formula $H\left(\mathbf{x},\rho\right)=c$
 \end_inset
 
  for some constant 
@@ -258,7 +269,7 @@ noprefix "false"
 
 ).
  Let 
-\begin_inset Formula $\mathfrak{f}=\sqrt{\left|\rho\right|c/\left(1-\rho^{2}\right)}$
+\begin_inset Formula $\mathfrak{f}=\sqrt{c\left|\rho\right|/\left(1-\rho^{2}\right)}$
 \end_inset
 
 .
@@ -293,6 +304,118 @@ noprefix "false"
 \end_inset
 
 .
+ The ellipse can be given parametrically as:
+\begin_inset Formula 
+\begin{equation}
+\begin{aligned}x_{1}\left(t\right) & =\sqrt{\frac{1}{2}\frac{c}{1-\rho}}\cos t+\sqrt{\frac{1}{2}\frac{c}{1+\rho}}\sin t\\
+x_{2}\left(t\right) & =\sqrt{\frac{1}{2}\frac{c}{1-\rho}}\cos t-\sqrt{\frac{1}{2}\frac{c}{1+\rho}}\sin t
+\end{aligned}
+\label{eq:ellipse-parametric}
+\end{equation}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $x_{2}\left(t\right)=x_{1}\left(-t\right).$
+\end_inset
+
+ The curvature of a parametric curve is given by 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Eq. 15 Pg. 355"
+key "courant1989introduction"
+literal "false"
+
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\kappa\left(t\right)=\frac{x_{2}^{\prime}\left(t\right)x_{1}^{\prime\prime}\left(t\right)-x_{1}^{\prime}\left(t\right)x_{2}^{\prime\prime}\left(t\right)}{\left[\left(x_{1}^{\prime}\left(t\right)\right)^{2}+\left(x_{2}^{\prime}\left(t\right)\right)^{2}\right]^{3/2}}
+\]
+
+\end_inset
+
+where the derivatives are w.r.t.
+ to the parameter 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Substituting the parametric representation 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:ellipse-parametric"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{aligned}x_{1}^{\prime}\left(t\right) & =-\sqrt{\frac{1}{2}\frac{c}{1-\rho}}\sin t+\sqrt{\frac{1}{2}\frac{c}{1+\rho}}\cos t\\
+x_{2}^{\prime}\left(t\right) & =-\sqrt{\frac{1}{2}\frac{c}{1-\rho}}\sin t-\sqrt{\frac{1}{2}\frac{c}{1+\rho}}\cos t
+\end{aligned}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left(x_{1}^{\prime}\left(t\right)\right)^{2}+\left(x_{2}^{\prime}\left(t\right)\right)^{2}=\frac{c}{1-\rho}\sin^{2}t+\frac{c}{1+\rho}\cos^{2}t
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{aligned}x_{1}^{\prime\prime}\left(t\right) & =-\sqrt{\frac{1}{2}\frac{c}{1-\rho}}\cos t-\sqrt{\frac{1}{2}\frac{c}{1+\rho}}\sin t=-x_{1}\left(t\right)\\
+x_{2}^{\prime\prime}\left(t\right) & =-\sqrt{\frac{1}{2}\frac{c}{1-\rho}}\cos t+\sqrt{\frac{1}{2}\frac{c}{1+\rho}}\sin t=-x_{2}\left(t\right)
+\end{aligned}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\begin{aligned}x_{1}^{\prime}\left(t\right)x_{2}^{\prime\prime}\left(t\right) & =\frac{c}{1-\rho^{2}}\sin t\cos t-\frac{c}{2}\frac{1}{\sqrt{1-\rho^{2}}}\\
+x_{2}^{\prime}\left(t\right)x_{1}^{\prime\prime}\left(t\right) & =\frac{c}{1-\rho^{2}}\sin t\cos t+\frac{c}{2}\sqrt{\frac{1}{1-\rho^{2}}}
+\end{aligned}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, we find:
+\begin_inset Formula 
+\[
+\kappa\left(t\right)=\frac{1-\rho^{2}}{\sqrt{c}}\left(\left(1+\rho\right)\sin^{2}t+\left(1-\rho\right)\cos^{2}t\right)^{-3/2}
+\]
+
+\end_inset
+
+The radius of curvature is 
+\begin_inset Formula $1/\kappa\left(t\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Truncation to rectangular domain
 \end_layout
 
 \begin_layout Standard
@@ -328,8 +451,8 @@ where the vector inequalities are component-wise and we assume that
  is given by:
 \begin_inset Formula 
 \[
-\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)=\frac{1}{Z\left(\mathbf{a},\mathbf{b},\rho\right)}\begin{cases}
-\mathcal{N}\left(\mathbf{x};\rho\right) & \mathbf{a}\le\mathbf{x}\le\mathbf{b}\\
+\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)=\frac{1}{Z\left(\rho,\mathbf{a},\mathbf{b}\right)}\begin{cases}
+\exp\left(-\frac{H\left(\mathbf{x},\rho\right)}{2\left(1-\rho^{2}\right)}\right) & \mathbf{a}\le\mathbf{x}\le\mathbf{b}\\
 0 & \text{otherwise}
 \end{cases}
 \]
@@ -343,7 +466,7 @@ where
  is a normalization constant, given by:
 \begin_inset Formula 
 \[
-Z\left(\mathbf{a},\mathbf{b},\rho\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\ \mathcal{N}\left(\mathbf{x};\rho\right)
+Z\left(\rho,\mathbf{a},\mathbf{b}\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\ \exp\left(-\frac{H\left(\mathbf{x},\rho\right)}{2\left(1-\rho^{2}\right)}\right)
 \]
 
 \end_inset
@@ -352,12 +475,12 @@ Z\left(\mathbf{a},\mathbf{b},\rho\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int
 \end_layout
 
 \begin_layout Standard
-In this note we want to compute the moments:
+Our goal is to compute the moments:
 \begin_inset Formula 
 \begin{align*}
-\left\langle x_{i}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)x_{i},\quad i=1,2\\
-\left\langle x_{i}^{2}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)x_{i}^{2},\quad i=1,2\\
-\left\langle x_{1}x_{2}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\mathbf{a},\mathbf{b},\rho\right)x_{1}x_{2}
+\left\langle x_{i}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)x_{i},\quad i=1,2\\
+\left\langle x_{i}^{2}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)x_{i}^{2},\quad i=1,2\\
+\left\langle x_{1}x_{2}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)x_{1}x_{2}
 \end{align*}
 
 \end_inset
@@ -386,7 +509,7 @@ Consider now the general truncated Gaussian with a positive semi-definite
 \begin_layout Standard
 \begin_inset Formula 
 \[
-\xi_{i}=\frac{x_{i}-\mu_{i}}{\sqrt{\Sigma_{ii}}}
+y_{i}=\frac{x_{i}-\mu_{i}}{\sqrt{\Sigma_{ii}}}
 \]
 
 \end_inset
@@ -395,7 +518,7 @@ leads to the previously considered distribution, with non-truncated moments
  given by:
 \begin_inset Formula 
 \[
-\left\langle \xi_{i}\right\rangle _{\mathcal{N}}=0,\quad\left\langle \xi_{i}^{2}\right\rangle _{\mathcal{N}}=1,\quad i=1,2
+\left\langle y_{i}\right\rangle _{\mathcal{N}}=0,\quad\left\langle y_{i}^{2}\right\rangle _{\mathcal{N}}=1,\quad i=1,2
 \]
 
 \end_inset
@@ -403,12 +526,17 @@ leads to the previously considered distribution, with non-truncated moments
 
 \begin_inset Formula 
 \[
-\rho=\left\langle \xi_{1}\xi_{2}\right\rangle _{\mathcal{N}}=\frac{\Sigma_{12}}{\sqrt{\Sigma_{11}\Sigma_{22}}}
+\rho=\left\langle y_{1}y_{2}\right\rangle _{\mathcal{N}}=\frac{\Sigma_{12}}{\sqrt{\Sigma_{11}\Sigma_{22}}}
 \]
 
 \end_inset
 
-If the original variables 
+which also determines the value of 
+\begin_inset Formula $\rho$
+\end_inset
+
+.
+ If the original variables 
 \begin_inset Formula $x_{i}$
 \end_inset
 
@@ -421,7 +549,7 @@ If the original variables
 \end_inset
 
  are bounded by 
-\begin_inset Formula $\alpha_{i}\le\xi_{i}\le\beta_{i}$
+\begin_inset Formula $\alpha_{i}\le y_{i}\le\beta_{i}$
 \end_inset
 
 , where
@@ -434,19 +562,33 @@ If the original variables
 
 Using the methods described below, we can compute the truncated moments
  of 
-\begin_inset Formula $\xi_{i}$
+\begin_inset Formula $y_{i}$
 \end_inset
 
 .
  Then:
 \begin_inset Formula 
 \begin{align*}
-\left\langle x_{1}^{m}x_{2}^{n}\right\rangle _{\mathcal{P}} & =\left\langle \left(\sqrt{\Sigma_{11}}\xi_{1}+\mu_{1}\right)^{m}\left(\sqrt{\Sigma_{11}}\xi_{2}+\mu_{2}\right)^{n}\right\rangle _{\mathcal{P}}\\
- & =\sum_{i=0}^{m}\sum_{j=0}^{n}\binom{m}{i}\binom{n}{j}\mu_{1}^{m-i}\mu_{2}^{n-j}\Sigma_{11}^{i/2}\Sigma_{22}^{j/2}\left\langle \xi_{1}^{i}\xi_{2}^{j}\right\rangle _{\mathcal{P}}
+\left\langle x_{1}^{m}x_{2}^{n}\right\rangle _{\mathcal{P}} & =\left\langle \left(\sqrt{\Sigma_{11}}y_{1}+\mu_{1}\right)^{m}\left(\sqrt{\Sigma_{11}}y_{2}+\mu_{2}\right)^{n}\right\rangle _{\mathcal{P}}\\
+ & =\sum_{i=0}^{m}\sum_{j=0}^{n}\binom{m}{i}\binom{n}{j}\mu_{1}^{m-i}\mu_{2}^{n-j}\Sigma_{11}^{i/2}\Sigma_{22}^{j/2}\left\langle y_{1}^{i}y_{2}^{j}\right\rangle _{\mathcal{P}}
 \end{align*}
 
 \end_inset
 
+In particular
+\begin_inset Formula 
+\begin{align*}
+\left\langle x_{i}\right\rangle _{\mathcal{P}} & =\mu_{i}+\sqrt{\Sigma_{ii}}\left\langle y_{i}\right\rangle _{\mathcal{P}} & i=1,2\\
+\left\langle x_{i}^{2}\right\rangle _{\mathcal{P}} & =\mu_{i}^{2}+2\mu_{i}\sqrt{\Sigma_{ii}}\left\langle y_{i}\right\rangle _{\mathcal{P}}+\Sigma_{ii}\left\langle y_{i}^{2}\right\rangle _{\mathcal{P}} & i=1,2\\
+\left\langle x_{1}x_{2}\right\rangle _{\mathcal{P}} & =\mu_{1}\mu_{2}+\mu_{1}\sqrt{\Sigma_{22}}\left\langle y_{2}\right\rangle _{\mathcal{P}}+\mu_{2}\sqrt{\Sigma_{11}}\left\langle y_{1}\right\rangle _{\mathcal{P}}+\sqrt{\Sigma_{11}\Sigma_{22}}\left\langle y_{1}y_{2}\right\rangle _{\mathcal{P}}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 Therefore it suffices to consider the truncated normal distribution with
  
 \begin_inset Formula $\mu_{i}=0$
@@ -464,13 +606,11 @@ Therefore it suffices to consider the truncated normal distribution with
 \end_layout
 
 \begin_layout Standard
-In particular
-\begin_inset Formula 
-\begin{align*}
-\left\langle x_{i}\right\rangle _{\mathcal{P}} & =\mu_{i}+\sqrt{\Sigma_{ii}}\left\langle \xi_{i}\right\rangle _{\mathcal{P}} & i=1,2\\
-\left\langle x_{i}^{2}\right\rangle _{\mathcal{P}} & =\mu_{i}^{2}+2\mu_{i}\sqrt{\Sigma_{ii}}\left\langle \xi_{i}\right\rangle _{\mathcal{P}}+\Sigma_{ii}\left\langle \xi_{i}^{2}\right\rangle _{\mathcal{P}} & i=1,2\\
-\left\langle x_{1}x_{2}\right\rangle _{\mathcal{P}} & =\mu_{1}\mu_{2}+\mu_{1}\sqrt{\Sigma_{22}}\left\langle \xi_{2}\right\rangle _{\mathcal{P}}+\mu_{2}\sqrt{\Sigma_{11}}\left\langle \xi_{1}\right\rangle _{\mathcal{P}}+\sqrt{\Sigma_{11}\Sigma_{22}}\left\langle \xi_{1}\xi_{2}\right\rangle _{\mathcal{P}}
-\end{align*}
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "references"
+options "amsalpha"
 
 \end_inset
 

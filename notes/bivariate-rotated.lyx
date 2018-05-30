@@ -1,0 +1,405 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Moments of the truncated bivariate Normal distribution
+\end_layout
+
+\begin_layout Abstract
+Miscellaneous notes about the computation of the moments of a truncated
+ bivariate normal distribution.
+\end_layout
+
+\begin_layout Section
+Bivariate normal distribution
+\end_layout
+
+\begin_layout Standard
+We consider a standardized normal bivariate distribution of the form:
+\begin_inset Formula 
+\[
+\mathcal{N}\left(\mathbf{x};\rho\right)=\frac{1}{2\pi\sqrt{1-\rho^{2}}}\exp\left(-\frac{H\left(\mathbf{x};\rho\right)}{2\left(1-\rho^{2}\right)}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $-1<\rho<1$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{x}=\left(x_{1},x_{2}\right)$
+\end_inset
+
+ and
+\begin_inset Formula 
+\[
+H\left(\mathbf{x};\rho\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}
+\]
+
+\end_inset
+
+The 
+\begin_inset Quotes eld
+\end_inset
+
+standardization
+\begin_inset Quotes erd
+\end_inset
+
+ means that 
+\begin_inset Formula $\left\langle x_{i}\right\rangle _{\mathcal{N}}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $\left\langle x_{i}^{2}\right\rangle _{\mathcal{N}}=1$
+\end_inset
+
+ for 
+\begin_inset Formula $i=1,2$
+\end_inset
+
+, while 
+\begin_inset Formula $\rho=\left\langle x_{1}x_{2}\right\rangle _{\mathcal{N}}$
+\end_inset
+
+.
+ Any normal bivariate distribution can be brought into this form by a translatio
+n and scaling of the variables 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $H\left(\mathbf{x};\rho\right)$
+\end_inset
+
+ is concave everywhere because the Hessian
+\begin_inset Formula 
+\[
+\frac{1}{2}\nabla_{\mathbf{x}}^{2}H=\left[\begin{array}{cc}
+1 & -\rho\\
+-\rho & 1
+\end{array}\right]
+\]
+
+\end_inset
+
+has positive eigenvalues 
+\begin_inset Formula $2\left(1\pm\rho\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The change of variables
+\begin_inset Formula 
+\[
+\xi_{1}=\frac{1}{\sqrt{2}}\left(x_{1}+x_{2}\right),\qquad\xi_{2}=\frac{1}{\sqrt{2}}\left(x_{1}-x_{2}\right)
+\]
+
+\end_inset
+
+leads to an uncoupled distribution, since
+\begin_inset Formula 
+\[
+H\left(\mathbf{x};\rho\right)=x_{1}^{2}+x_{2}^{2}-2\rho x_{1}x_{2}=\left(1-\rho\right)\xi_{1}^{2}+\left(1+\rho\right)\xi_{2}^{2}
+\]
+
+\end_inset
+
+Therefore,
+\begin_inset Formula 
+\[
+\mathcal{N}\left(\bm{\xi};\rho\right)=\mathcal{N}\left(\xi_{1};1+\rho\right)\mathcal{N}\left(\xi_{2};1-\rho\right)
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+\mathcal{N}\left(\xi,\nu\right)=\frac{1}{\sqrt{2\pi\nu}}\exp\left(-\frac{1}{2}\frac{\xi_{1}^{2}}{\nu}\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Truncation to rectangular domain
+\end_layout
+
+\begin_layout Standard
+Define a rectangular domain 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+, with vertices at 
+\begin_inset Formula $\mathbf{a}=\left(a_{1},a_{2}\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{b}=\left(b_{1},b_{2}\right)$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\mathcal{D}\left(\mathbf{a},\mathbf{b}\right)=\left\{ \mathbf{x}\in\mathbb{R}^{2}:\mathbf{a}\le\mathbf{x}\le\mathbf{b}\right\} 
+\]
+
+\end_inset
+
+where the vector inequalities are component-wise and we assume that 
+\begin_inset Formula $\mathbf{a}\le\mathbf{b}$
+\end_inset
+
+.
+ The bivariate density truncated to 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ is given by:
+\begin_inset Formula 
+\[
+\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)=\frac{1}{Z\left(\rho,\mathbf{a},\mathbf{b}\right)}\begin{cases}
+\exp\left(-\frac{H\left(\mathbf{x},\rho\right)}{2\left(1-\rho^{2}\right)}\right) & \mathbf{a}\le\mathbf{x}\le\mathbf{b}\\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $Z$
+\end_inset
+
+ is a normalization constant, given by:
+\begin_inset Formula 
+\[
+Z\left(\rho,\mathbf{a},\mathbf{b}\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\ \exp\left(-\frac{H\left(\mathbf{x},\rho\right)}{2\left(1-\rho^{2}\right)}\right)
+\]
+
+\end_inset
+
+Our goal is to compute the moments:
+\begin_inset Formula 
+\begin{align*}
+\left\langle x_{1}^{m}x_{2}^{n}\right\rangle _{\mathcal{P}} & =\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)x_{1}^{m}x_{2}^{n},\qquad m,n\in\mathbb{N}
+\end{align*}
+
+\end_inset
+
+We define the function,
+\begin_inset Formula 
+\[
+I\left(m,n\right)=\int_{a_{1}}^{b_{1}}\mathrm{d}x_{1}\int_{a_{2}}^{b_{2}}\mathrm{d}x_{2}\exp\left(-\frac{H\left(\mathbf{x},\rho\right)}{2\left(1-\rho^{2}\right)}\right)x_{1}^{m}x_{2}^{n}
+\]
+
+\end_inset
+
+Then,
+\begin_inset Formula 
+\[
+Z\left(\rho,\mathbf{a},\mathbf{b}\right)=I\left(0,0\right),\quad\left\langle x_{1}^{m}x_{2}^{n}\right\rangle _{\mathcal{P}}=I\left(m,n\right)/I\left(0,0\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Making the change of variables 
+\begin_inset Formula $\mathbf{x}\rightarrow\bm{\xi}$
+\end_inset
+
+, we obtain:
+\begin_inset Formula 
+\[
+I\left(m,n\right)=\int_{\mathcal{D}^{\prime}}\mathrm{d}\bm{\xi}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\left(\frac{\xi_{1}+\xi_{2}}{\sqrt{2}}\right)^{m}\left(\frac{\xi_{1}-\xi_{2}}{\sqrt{2}}\right)^{n}
+\]
+
+\end_inset
+
+where the domain 
+\begin_inset Formula $\mathcal{D}^{\prime}$
+\end_inset
+
+ is defined as the set of points 
+\begin_inset Formula $\left(\xi_{1},\xi_{2}\right)$
+\end_inset
+
+ such that 
+\begin_inset Formula $a_{1}\le\left(\xi_{1}+\xi_{2}\right)/\sqrt{2}\le b_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $a_{2}\le\left(\xi_{1}-\xi_{2}\right)/\sqrt{2}\le b_{2}$
+\end_inset
+
+.
+ It follows that:
+\begin_inset Formula 
+\[
+I\left(m,n\right)=2^{-\left(m+n\right)/2}\sum_{i=0}^{m}\sum_{j=0}^{n}\left(-1\right)^{n-j}\binom{m}{i}\binom{n}{j}J\left(i+j,m+n-i-j\right)
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+J\left(i,j\right)=\int_{-\infty}^{\infty}\mathrm{d}\xi_{1}\int_{\max\left\{ \sqrt{2}a_{1}-\xi_{1},\xi_{1}-\sqrt{2}b_{2}\right\} }^{\min\left\{ \sqrt{2}b_{1}-\xi_{1},\xi_{1}-\sqrt{2}a_{2}\right\} }\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
+\]
+
+\end_inset
+
+Without loss of generality we assume that 
+\begin_inset Formula $a_{1}+b_{2}\le b_{1}+a_{2}$
+\end_inset
+
+.
+ This can be achieved by exchanging the variables 
+\begin_inset Formula $x_{1}\leftrightarrow x_{2}$
+\end_inset
+
+ if necessary.
+ Then
+\begin_inset Formula 
+\[
+J\left(i,j\right)=J_{1}\left(i,j\right)+J_{2}\left(i,j\right)+J_{3}\left(i,j\right)
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\begin{align*}
+J_{1}\left(i,j\right) & =\int_{-\infty}^{a_{1}+b_{2}}\mathrm{d}\xi_{1}\int_{\sqrt{2}a_{1}-\xi_{1}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
+J_{2}\left(i,j\right) & =\int_{a_{1}+b_{2}}^{b_{1}+a_{2}}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
+J_{3}\left(i,j\right) & =\int_{b_{1}+a_{2}}^{\infty}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\sqrt{2}b_{1}-\xi_{1}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
+\end{align*}
+
+\end_inset
+
+Note that:
+\begin_inset Formula 
+\[
+\int_{0}^{c}\mathrm{e}^{-\frac{\xi}{2}}\xi^{n}\mathrm{d}\xi=2^{\left(n-1\right)/2}\left(\Gamma\left(\frac{n+1}{2}\right)-\Gamma\left(\frac{n+1}{2},\frac{c^{2}}{2}\right)\right)
+\]
+
+\end_inset
+
+Hence
+\begin_inset Formula 
+\[
+\begin{aligned}\int_{\alpha}^{\beta}\mathrm{e}^{-\frac{\xi}{2\nu}}\xi^{n}\mathrm{d}\xi & =\nu^{n+1}\int_{0}^{\left(\beta-\alpha\right)/\nu}\mathrm{e}^{-\frac{\xi+\alpha/\nu}{2}}\left(\xi+\alpha/\nu\right)^{n}\mathrm{d}\xi\\
+ & =\nu^{n+1}\sum_{k=0}^{n}\left(\alpha/\nu\right)^{n-k}\int_{0}^{\left(\beta-\alpha\right)/\nu}\mathrm{e}^{-\frac{\xi}{2}}\xi^{k}\mathrm{d}\xi\\
+ & =\nu^{n+1}\sum_{k=0}^{n}\left(\alpha/\nu\right)^{n-k}2^{\left(k-1\right)/2}\left(\Gamma\left(\frac{k+1}{2}\right)-\Gamma\left(\frac{k+1}{2},\frac{\left(\beta-\alpha\right)^{2}}{2\nu^{2}}\right)\right)
+\end{aligned}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\left(1-\rho\right)^{j+1}\sum_{k=0}^{j}\left(\frac{\sqrt{2}a_{1}-\xi_{1}}{1-\rho}\right)^{j-k}2^{\left(k-1\right)/2}\left(\Gamma\left(\frac{k+1}{2}\right)-\Gamma\left(\frac{k+1}{2},\left(\frac{\sqrt{2}\xi_{1}-a_{1}-a_{2}}{1-\rho}\right)^{2}\right)\right)
+\]
+
+\end_inset
+
+It follows that
+\begin_inset Formula 
+\begin{align*}
+J_{1}\left(i,j\right) & =\int_{-\infty}^{a_{1}+b_{2}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\xi_{1}^{i}\mathrm{d}\xi_{1}\int_{\sqrt{2}a_{1}-\xi_{1}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{2}^{j}\\
+J_{2}\left(i,j\right) & =\int_{a_{1}+b_{2}}^{b_{1}+a_{2}}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
+J_{3}\left(i,j\right) & =\int_{b_{1}+a_{2}}^{\infty}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\sqrt{2}b_{1}-\xi_{1}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

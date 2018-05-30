@@ -1,5 +1,7 @@
 library(TruncatedNormal)
 
-X = TruncatedNormal::mvrandn(l = c(-1,1), u = c(-1,1), 
-                             Sig =  matrix(c(1, 0.9, 0.9, 1), 2,2),
-                             n = 100)
+X = TruncatedNormal::mvrandn(l = c(-0.8557695194200599, 0.694996585019152),
+                             u = c(-0.1980761062026355, 1.1080963162589483),
+                             Sig =  matrix(c(0.977912, 0.529347, 0.529347, 0.289952), 2,2),
+                             n = 100000)
+

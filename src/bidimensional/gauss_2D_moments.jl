@@ -1,6 +1,9 @@
 "⟨x^i * x^j⟩"
 function _gauss2Dmoment(ρ::Real, a::Tuple{Real,Real}, b::Tuple{Real,Real}, i::Real, j::Real)
-    _gauss2Dmoment_nonorm(ρ, a, b, i, j) / _gauss2Dtrunc_partition(ρ, a, b)
+    v1, C1 = _gauss2Dmoment_nonorm(ρ, a, b, i, j)
+    v0, C0 = _gauss2Dtrunc_partition(ρ, a, b)
+    @assert C0 == C1
+    v1 / v0
 end
 
 function _gauss2Dtrunc_partition(ρ::Real, a::Tuple{Real,Real}, b::Tuple{Real,Real})
@@ -11,8 +14,8 @@ function _gauss2Dmoment_nonorm(ρ::Real, a::Tuple{Real,Real}, b::Tuple{Real,Real
     _integrate_gauss_2D(x -> x[1]^i * x[2]^j, ρ, a, b)
 end
 
-"⟨x^i * x^j⟩"
-function gauss2Dmoment(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{Real,Real}, b::Tuple{Real,Real}, m::Real, n::Real) where {T <: Real}
+"⟨x1^m * x2^n⟩"
+function gauss2Dmoment(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{Real,Real}, b::Tuple{Real,Real}, m::Integer, n::Integer) where {T <: Real}
 
     @assert size(Σ) == (2,2) && Σ[1,2] == Σ[2,1]
 
@@ -21,10 +24,37 @@ function gauss2Dmoment(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{Rea
     ρ = Σ[1,2] / √(Σ[1,1] * Σ[2,2])
     @assert -1 < ρ < 1
 
-    Z = _gauss2Dtrunc_partition(ρ, α, β)
+    # The limits ρ → ± 1 can be computed analytically..... but this turned out to be worse
+    # than just letting the integral do its job
+    # if ρ ≤ -0.99
+    #     if α[1] ≤ α[2]
+    #         ξ = (i,j) -> α[1]^i * α[2]^j
+    #     elseif β[1] ≥ β[2]
+    #         ξ = (i,j) -> β[1]^i * β[2]^j
+    #     else
+    #         ξ = (i,j) -> (-1)^j / (i + j + 1) * (min(β[1], -α[2])^(i + j + 1) - max(α[1], -β[2])^(i + j + 1)) / (min(β[1], -α[2]) - max(α[1], -β[2]))
+    #     end
+    # elseif ρ ≥ 0.99
+    #     if α[1] ≤ β[2]
+    #         ξ = (i,j) -> α[1]^i * β[2]^j
+    #     elseif β[1] ≤ α[2]
+    #         ξ = (i,j) -> β[1]^i * α[2]^j
+    #     else
+    #         ξ = (i,j) -> 1 / (i + j + 1) * (min(β[1], β[2])^(i + j + 1) - max(α[1], α[2])^(i + j + 1)) / (min(α[1], α[2]) - max(β[1], β[2]))
+    #     end
+    # else
+    #     Z = _gauss2Dtrunc_partition(ρ, α, β)
+    #     ξ = (i,j) -> _gauss2Dmoment_nonorm(ρ, α, β, i, j) / Z
+    # end
 
-    sum(binomial(m,i) * binomial(n,j) * μ[1]^(m-i) * μ[2]^(n-j) * √(Σ[1,1]^i * Σ[2,2]^j) * 
-        _gauss2Dmoment_nonorm(ρ, α, β, i, j) / Z
+    Z, C0 = _gauss2Dtrunc_partition(ρ, α, β)
+
+    ξ = (i,j) -> begin
+        v1, C1 = _gauss2Dmoment_nonorm(ρ, α, β, i, j)
+        v1 / Z
+    end 
+
+    sum(binomial(m,i) * binomial(n,j) * μ[1]^(m-i) * μ[2]^(n-j) * √(Σ[1,1]^i * Σ[2,2]^j) * ξ(i,j)
         for i = 0 : m for j = 0 : n)
 end
 
@@ -63,19 +93,25 @@ function gauss2Dtruncstats(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple
     ρ = Σ[1,2] / √(Σ[1,1] * Σ[2,2])
     @assert -1 < ρ < 1
 
-    Z = _gauss2Dtrunc_partition(ρ, α, β)
+    Z, _ = _gauss2Dtrunc_partition(ρ, α, β)
 
-    ξ1 = _gauss2Dmoment_nonorm(ρ, α, β, 1, 0) / Z
-    ξ2 = _gauss2Dmoment_nonorm(ρ, α, β, 0, 1) / Z
-    ξ11 = _gauss2Dmoment_nonorm(ρ, α, β, 2, 0) / Z
-    ξ22 = _gauss2Dmoment_nonorm(ρ, α, β, 0, 2) / Z
-    ξ12 = _gauss2Dmoment_nonorm(ρ, α, β, 1, 1) / Z
+    ξ10, _ = _gauss2Dmoment_nonorm(ρ, α, β, 1, 0)
+    ξ01, _ = _gauss2Dmoment_nonorm(ρ, α, β, 0, 1)
+    ξ20, _ = _gauss2Dmoment_nonorm(ρ, α, β, 2, 0)
+    ξ02, _ = _gauss2Dmoment_nonorm(ρ, α, β, 0, 2)
+    ξ11, _ = _gauss2Dmoment_nonorm(ρ, α, β, 1, 1)
 
-    tμ1 = μ[1] + √Σ[1,1] * ξ1
-    tμ2 = μ[2] + √Σ[2,2] * ξ2
-    tΣ11 = μ[1]^2 + 2μ[1] * √Σ[1,1] * ξ1 + Σ[1,1] * ξ11
-    tΣ22 = μ[2]^2 + 2μ[2] * √Σ[2,2] * ξ2 + Σ[2,2] * ξ22
-    tΣ12 = μ[1]μ[2] + μ[1] * √Σ[2,2] * ξ2 + μ[2] * √Σ[1,1] * ξ1 + √(Σ[1,1]Σ[2,2]) * ξ12
+    ξ10 /= Z
+    ξ01 /= Z
+    ξ20 /= Z
+    ξ02 /= Z
+    ξ11 /= Z
+
+    tμ1 = μ[1] + √Σ[1,1] * ξ10
+    tμ2 = μ[2] + √Σ[2,2] * ξ01
+    tΣ11 = μ[1]^2 + 2μ[1] * √Σ[1,1] * ξ10 + Σ[1,1] * ξ20
+    tΣ22 = μ[2]^2 + 2μ[2] * √Σ[2,2] * ξ01 + Σ[2,2] * ξ02
+    tΣ12 = μ[1]μ[2] + μ[1] * √Σ[2,2] * ξ01 + μ[2] * √Σ[1,1] * ξ10 + √(Σ[1,1]Σ[2,2]) * ξ11
     
     return (tμ1,tμ2), [tΣ11 tΣ12; tΣ12 tΣ22]
 end
