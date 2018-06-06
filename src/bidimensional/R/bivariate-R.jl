@@ -48,4 +48,7 @@ function truncated_bivariate_gaussian_moments(lb::RealVector, ub::RealVector, Si
     return μ, Σ
 end
 
+truncated_bivariate_gaussian_moments(lb::RealVector, ub::RealVector, Sig::RealMatrix) = truncated_bivariate_gaussian_moments(lb, ub, Sig, 10000)
+
+
 end
