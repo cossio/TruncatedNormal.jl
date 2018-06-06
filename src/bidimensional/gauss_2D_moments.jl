@@ -88,18 +88,18 @@ function gauss2Dtruncstats(μ::Tuple{<:Real, <:Real}, Σ::AbstractMatrix{<:Real}
 
     @assert size(Σ) == (2,2) && Σ[1,2] == Σ[2,1]
 
-    @show α = ((a[1] - μ[1]) / √Σ[1,1], (a[2] - μ[2]) / √Σ[2,2])
-    @show β = ((b[1] - μ[1]) / √Σ[1,1], (b[2] - μ[2]) / √Σ[2,2])
-    @show ρ = Σ[1,2] / √(Σ[1,1] * Σ[2,2])
+    α = ((a[1] - μ[1]) / √Σ[1,1], (a[2] - μ[2]) / √Σ[2,2])
+    β = ((b[1] - μ[1]) / √Σ[1,1], (b[2] - μ[2]) / √Σ[2,2])
+    ρ = Σ[1,2] / √(Σ[1,1] * Σ[2,2])
     @assert -1 < ρ < 1
 
-    @show Z, _ = _gauss2Dtrunc_partition(ρ, α, β)
+    Z, _ = _gauss2Dtrunc_partition(ρ, α, β)
 
-    @show ξ10, _ = _gauss2Dmoment_nonorm(ρ, α, β, 1, 0)
-    @show ξ01, _ = _gauss2Dmoment_nonorm(ρ, α, β, 0, 1)
-    @show ξ20, _ = _gauss2Dmoment_nonorm(ρ, α, β, 2, 0)
-    @show ξ02, _ = _gauss2Dmoment_nonorm(ρ, α, β, 0, 2)
-    @show ξ11, _ = _gauss2Dmoment_nonorm(ρ, α, β, 1, 1)
+    ξ10, _ = _gauss2Dmoment_nonorm(ρ, α, β, 1, 0)
+    ξ01, _ = _gauss2Dmoment_nonorm(ρ, α, β, 0, 1)
+    ξ20, _ = _gauss2Dmoment_nonorm(ρ, α, β, 2, 0)
+    ξ02, _ = _gauss2Dmoment_nonorm(ρ, α, β, 0, 2)
+    ξ11, _ = _gauss2Dmoment_nonorm(ρ, α, β, 1, 1)
 
     ξ10 /= Z
     ξ01 /= Z

@@ -60,9 +60,9 @@ bivariate X ~ N(μ,Σ), conditional on lb < X < ub.
 function truncated_bivariate_gaussian_moments(μ::RealVector, Σ::RealMatrix, lb::RealVector, ub::RealVector, N::Integer = 10000)
     X = sample_truncated_bivariate_gaussian(μ, Σ, lb, ub, N)
     tμ = mean(X, 2)
-    tΣ = [mean(X[i,:], X[j,:]) for i = 1:2, j = 1:2]
+    tΣ = [mean(X[i,:] .* X[j,:]) for i = 1:2, j = 1:2]
     return tμ, tΣ
 end
 
 
-end
+end # module R
