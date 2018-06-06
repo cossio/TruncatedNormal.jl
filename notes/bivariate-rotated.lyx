@@ -309,14 +309,26 @@ where the domain
 \end_inset
 
  such that 
-\begin_inset Formula $a_{1}\le\left(\xi_{1}+\xi_{2}\right)/\sqrt{2}\le b_{1}$
+\begin_inset Formula $\sqrt{2}a_{1}\le\xi_{1}+\xi_{2}\le\sqrt{2}b_{1}$
 \end_inset
 
  and 
-\begin_inset Formula $a_{2}\le\left(\xi_{1}-\xi_{2}\right)/\sqrt{2}\le b_{2}$
+\begin_inset Formula $\sqrt{2}a_{2}\le\xi_{1}-\xi_{2}\le\sqrt{2}b_{2}$
 \end_inset
 
 .
+ Thus for any function of 
+\begin_inset Formula $\xi_{1},\xi_{2}$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+\int_{\mathcal{D}^{\prime}}\mathrm{d}\bm{\xi}\,\left[\dots\right]=\int_{\frac{1}{\sqrt{2}}\left(a_{1}+a_{2}\right)}^{\frac{1}{\sqrt{2}}\left(b_{1}+b_{2}\right)}\mathrm{d}\xi_{1}\int_{\max\left\{ \sqrt{2}a_{1}-\xi_{1},\xi_{1}-\sqrt{2}b_{2}\right\} }^{\min\left\{ \sqrt{2}b_{1}-\xi_{1},\xi_{1}-\sqrt{2}a_{2}\right\} }\mathrm{d}\xi_{2}\left[\dots\right]
+\]
+
+\end_inset
+
  It follows that:
 \begin_inset Formula 
 \[
@@ -328,7 +340,29 @@ I\left(m,n\right)=2^{-\left(m+n\right)/2}\sum_{i=0}^{m}\sum_{j=0}^{n}\left(-1\ri
 where
 \begin_inset Formula 
 \[
-J\left(i,j\right)=\int_{-\infty}^{\infty}\mathrm{d}\xi_{1}\int_{\max\left\{ \sqrt{2}a_{1}-\xi_{1},\xi_{1}-\sqrt{2}b_{2}\right\} }^{\min\left\{ \sqrt{2}b_{1}-\xi_{1},\xi_{1}-\sqrt{2}a_{2}\right\} }\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
+J\left(i,j\right)=\int_{\frac{1}{\sqrt{2}}\left(a_{1}+a_{2}\right)}^{\frac{1}{\sqrt{2}}\left(b_{1}+b_{2}\right)}\mathrm{d}\xi_{1}\int_{\max\left\{ \sqrt{2}a_{1}-\xi_{1},\xi_{1}-\sqrt{2}b_{2}\right\} }^{\min\left\{ \sqrt{2}b_{1}-\xi_{1},\xi_{1}-\sqrt{2}a_{2}\right\} }\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
+\]
+
+\end_inset
+
+Note that:
+\begin_inset Formula 
+\[
+\max\left\{ \sqrt{2}a_{1}-\xi_{1},\xi_{1}-\sqrt{2}b_{2}\right\} =\begin{cases}
+\sqrt{2}a_{1}-\xi_{1} & \xi_{1}\le\frac{a_{1}+b_{2}}{\sqrt{2}}\\
+\xi_{1}-\sqrt{2}b_{2} & \xi_{1}\ge\frac{a_{1}+b_{2}}{\sqrt{2}}
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\min\left\{ \sqrt{2}b_{1}-\xi_{1},\xi_{1}-\sqrt{2}a_{2}\right\} =\begin{cases}
+\xi_{1}-\sqrt{2}a_{2} & \xi_{1}\le\frac{b_{1}+a_{2}}{\sqrt{2}}\\
+\sqrt{2}b_{1}-\xi_{1} & \xi_{1}\ge\frac{b_{1}+a_{2}}{\sqrt{2}}
+\end{cases}
 \]
 
 \end_inset
@@ -337,13 +371,12 @@ Without loss of generality we assume that
 \begin_inset Formula $a_{1}+b_{2}\le b_{1}+a_{2}$
 \end_inset
 
-.
- This can be achieved by exchanging the variables 
+ (exchange the variables 
 \begin_inset Formula $x_{1}\leftrightarrow x_{2}$
 \end_inset
 
- if necessary.
- Then
+ if necessary).
+ Then,
 \begin_inset Formula 
 \[
 J\left(i,j\right)=J_{1}\left(i,j\right)+J_{2}\left(i,j\right)+J_{3}\left(i,j\right)
@@ -354,14 +387,45 @@ J\left(i,j\right)=J_{1}\left(i,j\right)+J_{2}\left(i,j\right)+J_{3}\left(i,j\rig
 where
 \begin_inset Formula 
 \begin{align*}
-J_{1}\left(i,j\right) & =\int_{-\infty}^{a_{1}+b_{2}}\mathrm{d}\xi_{1}\int_{\sqrt{2}a_{1}-\xi_{1}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
-J_{2}\left(i,j\right) & =\int_{a_{1}+b_{2}}^{b_{1}+a_{2}}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
-J_{3}\left(i,j\right) & =\int_{b_{1}+a_{2}}^{\infty}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\sqrt{2}b_{1}-\xi_{1}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
+J_{1}\left(i,j\right) & =\int_{\frac{1}{\sqrt{2}}\left(a_{1}+a_{2}\right)}^{\frac{1}{\sqrt{2}}\left(a_{1}+b_{2}\right)}\mathrm{d}\xi_{1}\int_{\sqrt{2}a_{1}-\xi_{1}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
+J_{2}\left(i,j\right) & =\int_{\frac{1}{\sqrt{2}}\left(a_{1}+b_{2}\right)}^{\frac{1}{\sqrt{2}}\left(b_{1}+a_{2}\right)}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}\\
+J_{3}\left(i,j\right) & =\int_{\frac{1}{\sqrt{2}}\left(b_{1}+a_{2}\right)}^{\frac{1}{\sqrt{2}}\left(b_{1}+b_{2}\right)}\mathrm{d}\xi_{1}\int_{\xi_{1}-\sqrt{2}b_{2}}^{\sqrt{2}b_{1}-\xi_{1}}\mathrm{d}\xi_{2}\ \mathrm{e}^{-\frac{1}{2}\frac{\xi_{1}^{2}}{1+\rho}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\xi_{1}^{i}\xi_{2}^{j}
 \end{align*}
 
 \end_inset
 
 Note that:
+\begin_inset Formula 
+\begin{align*}
+\int\mathrm{e}^{-cx^{2}}\mathrm{d}x & =\frac{1}{2}\sqrt{\frac{\pi}{c}}\mathrm{erf}\left(\sqrt{c}x\right)\\
+\int\mathrm{e}^{-cx^{2}}x\mathrm{d}x & =-\frac{1}{2c}\mathrm{e}^{-cx^{2}}\\
+\int\mathrm{e}^{-cx^{2}}x^{2}\mathrm{d}x & =-\frac{1}{2c}x\mathrm{e}^{-cx^{2}}+\frac{1}{4c}\sqrt{\frac{\pi}{c}}\mathrm{erf}\left(\sqrt{c}x\right)
+\end{align*}
+
+\end_inset
+
+It follows that
+\begin_inset Formula 
+\[
+\int_{\sqrt{2}a_{1}-\xi_{1}}^{\xi_{1}-\sqrt{2}a_{2}}\mathrm{e}^{-\frac{1}{2}\frac{\xi_{2}^{2}}{1-\rho}}\mathrm{d}\xi_{2}=\frac{1}{2}\sqrt{2\pi\left(1-\rho\right)}\left[\mathrm{erf}\left(\frac{\xi_{1}-\sqrt{2}a_{2}}{\sqrt{2\left(1-\rho\right)}}\right)-\mathrm{erf}\left(\frac{\sqrt{2}a_{1}-\xi_{1}}{\sqrt{2\left(1-\rho\right)}}\right)\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+for 
+\begin_inset Formula $n=1,2$
+\end_inset
+
+, is the mean and variance of a truncated univariate Gaussian centered at
+ zero and with variance parameter 
+\begin_inset Formula $1-\rho$
+\end_inset
+
+.
 \begin_inset Formula 
 \[
 \int_{0}^{c}\mathrm{e}^{-\frac{\xi}{2}}\xi^{n}\mathrm{d}\xi=2^{\left(n-1\right)/2}\left(\Gamma\left(\frac{n+1}{2}\right)-\Gamma\left(\frac{n+1}{2},\frac{c^{2}}{2}\right)\right)

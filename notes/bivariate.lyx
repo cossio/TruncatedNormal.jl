@@ -605,6 +605,29 @@ Therefore it suffices to consider the truncated normal distribution with
 .
 \end_layout
 
+\begin_layout Section
+Symmetries
+\end_layout
+
+\begin_layout Standard
+By rotating if necessary we can assume that 
+\begin_inset Formula $\mathbf{b}\ge0$
+\end_inset
+
+ (component-wise).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\mathcal{P}\left(\mathbf{x};\rho,\mathbf{a},\mathbf{b}\right)=\mathcal{P}\left(\mathbf{x};\rho,\mathbf{0},\mathbf{b}\right)-\mathcal{P}\left(\mathbf{x};\rho,\mathbf{0},\mathbf{a}\right)-\mathcal{P}\left(\mathbf{x};\rho,\left(0,a_{2}\right),\left(a_{1},b_{2}\right)\right)-\mathcal{P}\left(\mathbf{x};\rho,\left(a_{1},0\right),\left(b_{1},a_{2}\right)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
