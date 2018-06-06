@@ -38,17 +38,31 @@ end
 
 
 """
-Compute the mean and covariance matrix of a Gaussian
-bivariate X ~ N(0,Σ), conditional on lb < X < ub.
+Samples N points from a bivariate Gaussian X ~ N(μ,Sig) 
+conditional on lb ≤ X ≤ ub. Accepts infinite lb, ub.
 """
-function truncated_bivariate_gaussian_moments(lb::RealVector, ub::RealVector, Sig::RealMatrix, N::Integer)
-    X = sample_truncated_bivariate_gaussian(lb, ub, Sig, N)
-    μ = mean(X, 2)
-    Σ = [mean(X[i,:], X[j,:]) for i = 1:2, j = 1:2]
-    return μ, Σ
+function sample_truncated_bivariate_gaussian(lb::RealVector, ub::RealVector, μ::RealVector, Sig::RealMatrix, N::Integer)
+    @assert size(Sig) == (2,2) && length(μ) == length(lb) == length(ub) == 2
+    @assert N > 0
+    @assert all(lb .< ub)
+    @assert all(-Inf .< μ .< Inf)
+    @assert issymmetric(Sig)
+
+    X = sample_truncated_bivariate_gaussian(lb .- μ, ub .- μ, Sig, N)
+    return X .+ μ
 end
 
-truncated_bivariate_gaussian_moments(lb::RealVector, ub::RealVector, Sig::RealMatrix) = truncated_bivariate_gaussian_moments(lb, ub, Sig, 10000)
+
+"""
+Compute the mean and covariance matrix of a Gaussian
+bivariate X ~ N(μ,Σ), conditional on lb < X < ub.
+"""
+function truncated_bivariate_gaussian_moments(lb::RealVector, ub::RealVector, μ::RealVector, Σ::RealMatrix, N::Integer = 10000)
+    X = sample_truncated_bivariate_gaussian(lb, ub, μ, Σ, N)
+    tμ = mean(X, 2)
+    tΣ = [mean(X[i,:], X[j,:]) for i = 1:2, j = 1:2]
+    return tμ, tΣ
+end
 
 
 end
