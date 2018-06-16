@@ -79,7 +79,7 @@ function gauss2Dmoment22(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{R
 end
 
 "⟨x1*x2⟩"
-function gauss2Dmoment12(μ::Tuple{Real,Real}, Σ::AbstractMatrix{T}, a::Tuple{Real,Real}, b::Tuple{Real,Real}) where {T <: Real}
+function gauss2Dmoment12(μ::Tuple{<:Real, <:Real}, Σ::AbstractMatrix{<:Real}, a::Tuple{<:Real, <:Real}, b::Tuple{<:Real, <:Real})
     gauss2Dmoment(μ, Σ, a, b, 1, 1)
 end
 
@@ -117,7 +117,7 @@ function gauss2Dtruncstats(μ::Tuple{<:Real, <:Real}, Σ::AbstractMatrix{<:Real}
 end
 
 
-function gauss2Dtruncstats(μ::Vector{T}, Σ::AbstractMatrix{T}, a::Vector{T}, b::Vector{T}) where {T <: Real}
+function gauss2Dtruncstats(μ::AbstractVector{<:Real}, Σ::AbstractMatrix{<:Real}, a::AbstractVector{<:Real}, b::AbstractVector{<:Real})
     @assert length(μ) == length(a) == length(b) == 2
     @assert size(Σ) == (2,2)
     tμ, tΣ = gauss2Dtruncstats((μ[1],μ[2]), Σ, (a[1],a[2]), (b[1],b[2]))
