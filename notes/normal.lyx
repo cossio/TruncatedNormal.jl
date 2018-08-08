@@ -215,12 +215,12 @@ The functions
  We propose:
 \begin_inset Formula 
 \begin{align*}
- & F_{1}\left(x,y\right) &  & F_{2}\left(x,y\right)\\
- & =F_{1}\left(y,x\right), &  & =F_{2}\left(y,x\right), &  & \text{if }\left|x\right|>\left|y\right|\\
- & =P_{1}\left(x,y-x\right), &  & =P_{2}\left(x,y-x\right), &  & \text{if }\left|x-y\right|<10^{-7}\\
- & =\frac{1-\Delta}{\Delta\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & =\frac{x-y\Delta}{\Delta\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & \text{if }x,y\le0\\
- & =\frac{1-\Delta}{\mathrm{erfcx}\left(x\right)-\Delta\mathrm{erfcx}\left(y\right)} &  & =\frac{x-y\Delta}{\mathrm{erfcx}\left(x\right)-\Delta\mathrm{erfcx}\left(y\right)} &  & \text{if }x,y\ge0\\
- & =\frac{\left(1-\Delta\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & =\frac{\left(x-y\Delta\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & \text{otherwise}
+ & F_{1}\left(x,y\right) & \quad\quad & F_{2}\left(x,y\right)\\
+ & =F_{1}\left(y,x\right), & \quad\quad & =F_{2}\left(y,x\right), &  & \text{if }\left|x\right|>\left|y\right|\\
+ & =P_{1}\left(x,y-x\right), & \quad\quad & =P_{2}\left(x,y-x\right), &  & \text{if }\left|x-y\right|<10^{-7}\\
+ & =\frac{1-\Delta}{\Delta\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} & \quad\quad & =\frac{x-y\Delta}{\Delta\mathrm{erfcx}\left(-y\right)-\mathrm{erfcx}\left(-x\right)} &  & \text{if }x,y\le0\\
+ & =\frac{1-\Delta}{\mathrm{erfcx}\left(x\right)-\Delta\mathrm{erfcx}\left(y\right)} & \quad\quad & =\frac{x-y\Delta}{\mathrm{erfcx}\left(x\right)-\Delta\mathrm{erfcx}\left(y\right)} &  & \text{if }x,y\ge0\\
+ & =\frac{\left(1-\Delta\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} & \quad\quad & =\frac{\left(x-y\Delta\right)\mathrm{e}^{-x^{2}}}{\mathrm{erf}\left(y\right)-\mathrm{erf}\left(x\right)} &  & \text{otherwise}
 \end{align*}
 
 \end_inset
@@ -285,15 +285,15 @@ F_{1}\left(x,\pm\infty\right)=\frac{\pm1}{\mathrm{erfcx}\left(\pm x\right)},\qqu
 \end_inset
 
 We define 
-\begin_inset Formula $F_{i}\left(\infty,\pm\infty\right)=\lim_{x\rightarrow\infty}\lim_{y\rightarrow\pm\infty}F_{i}\left(x,y\right)$
+\begin_inset Formula 
+\begin{align*}
+F_{i}\left(\infty,\pm\infty\right) & =\lim_{x\rightarrow\infty}\lim_{y\rightarrow\pm\infty}F_{i}\left(x,y\right)\\
+F_{i}\left(-\infty,\pm\infty\right) & =\lim_{x\rightarrow-\infty}\lim_{y\rightarrow\pm\infty}F_{i}\left(x,y\right)
+\end{align*}
+
 \end_inset
 
- and 
-\begin_inset Formula $F_{i}\left(-\infty,\pm\infty\right)=\lim_{x\rightarrow-\infty}\lim_{y\rightarrow\pm\infty}F_{i}\left(x,y\right)$
-\end_inset
-
-.
- That is, we take the limit on 
+That is, we take the limit on 
 \begin_inset Formula $y$
 \end_inset
 
@@ -371,6 +371,12 @@ From
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+This method of evaluating the moments of the truncated normal distribution
+ have been implemented into a Julia package at https://github.com/cossio/Truncate
+dNormal.jl.
 \end_layout
 
 \end_body
