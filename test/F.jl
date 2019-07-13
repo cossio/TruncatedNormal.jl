@@ -1,5 +1,4 @@
-using Base.Test
-
+using Test, Random, SpecialFunctions
 import TruncatedNormal: _F1, _F2
 
 @testset "F1 & F2" begin
@@ -11,7 +10,7 @@ import TruncatedNormal: _F1, _F2
     end
 
     @testset "x == y" begin
-        srand(1)
+        Random.seed!(1)
         for r = 1 : 1000
             x = 10 * (rand() - 0.5)
             @test _F1(x, x) ≈ x * √π
@@ -56,18 +55,18 @@ import TruncatedNormal: _F1, _F2
     end
 
     @testset "F(x, y) == F(y, x)" begin
-        srand(1)
+        Random.seed!(1)
         for r = 1 : 1000
-            x, y = 10 * (rand(2) - 0.5)
+            x, y = 10 .* (rand(2) .- 0.5)
             @test _F1(x, y) == _F1(y, x)
             @test _F2(x, y) == _F2(y, x)
         end
     end
 
     @testset "Random numbers" begin
-        srand(1)
+        Random.seed!(1)
         for r = 1:1000
-            x, y = rand(2) - 0.5
+            x, y = rand(2) .- 0.5
             @test _F1(x, y) ≈ (exp(-x^2) - exp(-y^2)) / (erf(y) - erf(x))
             @test _F2(x, y) ≈ (exp(-x^2)*x - exp(-y^2)*y) / (erf(y) - erf(x))
         end
@@ -90,7 +89,7 @@ end
         @test _F2(Inf, v) ≈ _F2(v, Inf) ≈ _F2(1e20, v) ≈ _F2(v, 1e20)
     end
 
-    srand(1)
+    Random.seed!(1)
     for r = 1:100
         v = 10rand() - 5
         @test _F1(-Inf, v) ≈ _F1(v, -Inf) ≈ _F1(-1e20, v) ≈ _F1(v, -1e20)

@@ -39,7 +39,6 @@ Mean of the truncated normal distribution, where μ, σ
 are the mean and standard deviation of the untruncated
 distribution.
 """
-function tnmom1 end
 tnmom1 = tnmean
 
 """

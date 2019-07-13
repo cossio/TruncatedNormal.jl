@@ -1,5 +1,4 @@
-using Base.Test
-
+using Test, Random
 import TruncatedNormal: tnmean, tnvar
 
 @testset "moments" begin
@@ -22,7 +21,6 @@ import TruncatedNormal: tnmean, tnvar
     @test tnvar(-10000., 10000., 0., 1.) ≈ 1
 end
 
-
 @testset "moments (infinite ranges)" begin
     @test tnmean(-Inf, Inf) == tnmean(-Inf, Inf, 0, 1) == 0
     @test tnvar(-Inf, Inf) == tnvar(-Inf, Inf, 0, 1)  == 1
@@ -31,5 +29,4 @@ end
     @test tnmean(-Inf, 0) == tnmean(-Inf, 0, 0, 1) ≈ -√(2/π)
     @test tnvar(0, Inf) == tnvar(0, Inf, 0, 1) ≈ 1 - 2/π
     @test tnvar(-Inf, 0) == tnvar(-Inf, 0, 0, 1) ≈ 1 - 2/π
-
 end

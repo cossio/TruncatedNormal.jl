@@ -1,9 +1,4 @@
-include("F.jl")
-include("moments.jl")
+using SafeTestsets
 
-#include("_integrate.jl")
-#include("multivariate.jl")
-
-#include("bidimensional/_ellipse_rect_minmax_2D.jl")
-#include("bidimensional/_integrate_gauss_2D.jl")
-#include("bidimensional/gauss_2D_moments.jl")
+@safetestset "F" begin include("F.jl") end
+@safetestset "moments" begin include("moments.jl") end
