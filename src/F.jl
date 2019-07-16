@@ -53,7 +53,7 @@ function _F2(x::Real, y::Real)::Float64
 
     @assert x ≤ y && abs(x) ≤ abs(y)
 
-    if x == Inf && y == -Inf || x == -Inf && y == Inf
+    if x == -Inf && y == Inf
         return zero(x + y)
     elseif isinf(y)
         return -sign(y) * x / erfcx(sign(y) * x)
@@ -70,5 +70,39 @@ function _F2(x::Real, y::Real)::Float64
         (Δ * y - x) / (erfcx(x) - Δ * erfcx(y))
     else
         exp(-x^2) * (Δ * y - x) / (erf(y) - erf(x))
+    end
+end
+
+"""
+    _F3(x, y) = 
+    
+Computes (exp(-x^2) + exp(-y^2)) / (erf(x) - erf(y))
+without catastrophic cancellation.
+"""
+function _F3(x::Real, y::Real)::Float64
+    if x > y && abs(x) > abs(y)
+        return -_F3(y, x)
+    elseif x > y && abs(x) ≤ abs(y)
+        return -_F3(-x, -y)
+    elseif x < y && abs(x) > abs(y)
+        return _F3(-y, -x)
+    end
+
+    @assert x < y && abs(x) ≤ abs(y)
+
+    if x == -Inf && y == Inf
+        return zero(x + y)
+    elseif isinf(y)
+        return -inv(erfcx(x))
+    end
+
+    Δ = exp(x^2 - y^2)
+
+    if max(x, y) < 0
+        (Δ + 1) / (erfcx(-x) - Δ * erfcx(-y))
+    elseif min(x, y) > 0
+        (Δ + 1) / (Δ * erfcx(y) - erfcx(x))
+    else
+        (Δ + 1) * exp(-x^2) / (erf(x) - erf(y))
     end
 end

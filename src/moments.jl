@@ -46,7 +46,8 @@ tnmom1 = tnmean
 
 Second moment of the truncated standard normal distribution.
 """
-tnmom2(a, b) = tnmom1(a,b)^2 + tnvar(a, b)
+#tnmom2(a, b) = tnmom1(a,b)^2 + tnvar(a, b)
+tnmom2(a, b) = 1 - 2/√π * _F2(a/√2, b/√2)
 
 """
     tnmom2(a, b, μ, σ)
@@ -65,11 +66,8 @@ function tnvar(a, b)
     if a == b
         return zero(a + b)
     elseif a < b
-        if abs(a) < abs(b)
-            return tnvar(-b, -a)
-        else
-            return 1 - 2/√π * _F2(a/√2, b/√2) - tnmean(a, b)^2
-        end
+        m1 = tnmom1(a, b)
+        return 1 - √(π/2) * (b - a) * _F3(a/√2, b/√2) + (middle(a, b) - m1) * m1
     else
         throw(ArgumentError("a must be ≤ b; got a = $a, b = $b"))
     end
