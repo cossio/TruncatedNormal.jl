@@ -29,4 +29,5 @@ for x = -10:10
     @test tnmom2(-Inf, x) == tnmom2(-Inf, x, 0, 1)
 end
 
+@test tnmom2(-1e200, 1e200) ≈ 1
 @test tnmom2(-1e6, -999000) ≈ 9.9800100000199999999999799599399200002e11

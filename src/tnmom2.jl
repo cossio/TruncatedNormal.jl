@@ -22,7 +22,7 @@ function tnmom2(a, b)
     @assert a < b < Inf && abs(a) ≤ abs(b)
     @assert a ≤ 0 ≤ b || 0 ≤ a ≤ b
 
-    Δ = exp((a^2 - b^2) / 2)
+    Δ = exp((a - b)middle(a, b))
     if a ≤ 0 ≤ b
         return 1 - √(2 / π) * (Δ * b - a)exp(-a^2 / 2) / (erf(b / √2) - erf(a / √2))
     elseif 0 ≤ a ≤ b

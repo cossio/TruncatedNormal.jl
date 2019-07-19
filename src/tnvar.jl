@@ -19,17 +19,6 @@ function tnvar(a, b)
     @assert a ≤ 0 ≤ b || 0 ≤ a < b
     
     return tnmom2(a, b) - tnmom1(a, b)^2
-    
-    if a ≤ 0 ≤ b || -1 ≤ a ≤ b ≤ 1
-    elseif 0 ≤ a < b
-        #m1 = 
-        m2 = 2/√π * _F2(a/√2, b/√2)
-        m1 = √(2/π) * _F1(a/√2, b/√2)
-        return 1 - (middle(a,b) - (b-a)/2 * _G3(a/√2, b/√2) + m1) * m1
-    # elseif 0 ≤ a ≤ b
-    #     c2 = 1 + a^2 - 2/√π * _F4(a/√2, b/√2)
-    #     return c2 - (m1 - a)^2
-    end 
 end
 
 """
