@@ -2,7 +2,8 @@ module TruncatedNormal
 
     using SpecialFunctions
 
-    include("F.jl")
-    include("moments.jl")
+    include("tnmom1.jl")
+    include("tnmom2.jl")
+    include("tnvar.jl")
 
 end # module
