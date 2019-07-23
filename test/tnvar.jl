@@ -10,7 +10,6 @@ using Test, TruncatedNormal, SpecialFunctions, Statistics
 @test tnvar(-Inf, +Inf) == 1
 @test tnvar(+Inf, +Inf) == 0
 @test tnvar(-Inf, -Inf) == 0
-
 @test tnvar(0, +Inf) ≈ 1 - 2/π
 @test tnvar(-Inf, 0) ≈ 1 - 2/π
 
@@ -24,13 +23,14 @@ for x = -10:10
     @test tnvar(-Inf, x, 0, 1) ≈ tnvar(-Inf, x)
 end
 
-@test tnvar(-Inf, Inf, 0, 1) == 1
-
 @test tnvar(50, 70) ≈ 0.0003990431868038995479099272265360593305365
+@test tnvar(1e6, Inf) ≈ 9.99999999994000000000050000000e-13
 
 # https://github.com/JuliaStats/Distributions.jl/issues/827
-@test_broken tnvar(-1e6, -999000) ≥ 0
-@test_broken tnvar(-1e6, -999000) ≈ 1.00200300399898194688784897455e-12
+@test_broken tnvar(999000, 1e6) ≥ 0
+@test_broken tnvar(999000, 1e6) ≈ 1.00200300399898194688784897455e-12
+
+@test tnvar(-Inf, Inf, 0, 1) == 1
 
 @test tnvar(50, 70, -2, 3) ≈ 0.029373438107168350377591231295634273607812172191712
 @test tnvar(-100.0, 0.0, 0.0, 2.0986317998643735) ≈ 1.6004193412141677189841357987638847137391508803335

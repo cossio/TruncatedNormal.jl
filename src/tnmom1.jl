@@ -8,7 +8,7 @@ Mean of the truncated standard normal distribution.
 """
 function tnmom1(a::Real, b::Real)
     if !(a ≤ b)
-        return oftype(a * b, NaN)
+        return oftype(middle(a, b), NaN)
     elseif a == b
         return middle(a, b)
     elseif abs(a) > abs(b)
@@ -25,7 +25,7 @@ function tnmom1(a::Real, b::Real)
 
     if 0 ≤ a < b
         return √(2/π) * Δm1 / (Δ * erfcx(b / √2) - erfcx(a / √2))
-    elseif a ≤ 0 ≤ b
+    else # a ≤ 0 ≤ b
         return √(2/π) * Δm1 * exp(-a^2 / 2) / (erf(a / √2) - erf(b / √2))
     end
 end
@@ -33,9 +33,8 @@ end
 """
     tnmom1(a, b, μ, σ)
 
-Mean of the truncated normal distribution, where μ, σ
-are the mean and standard deviation of the untruncated
-distribution.
+Mean of the truncated normal distribution, where μ, σ are the mean and standard
+deviation of the untruncated distribution.
 """
 function tnmom1(a, b, μ, σ)
     α = (a - μ) / σ
@@ -50,8 +49,7 @@ Mean of the truncated standard normal distribution.
 
     tnmean(a, b, μ, σ)
 
-Mean of the truncated normal distribution, where μ, σ
-are the mean and standard deviation of the untruncated
-distribution.
+Mean of the truncated normal distribution, where μ, σ are the mean and standard
+deviation of the untruncated distribution.
 """
 tnmean = tnmom1

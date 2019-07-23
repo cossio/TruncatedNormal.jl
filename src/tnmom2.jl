@@ -6,7 +6,9 @@ export tnmom1, tnmom2, tnvar, tnmean
 
 Second moment of the truncated standard normal distribution.
 """
-function tnmom2(a, b)
+function tnmom2(a::Real, b::Real)
+    return tnmom2c(0, a, b)
+
     if !(a ≤ b)
         return oftype(middle(a, b), NaN)
     elseif a == b
@@ -15,25 +17,43 @@ function tnmom2(a, b)
         return tnmom2(-b, -a)
     elseif isinf(a) && isinf(b)
         return one(middle(a, b))
-    elseif isfinite(a) && isinf(b)
+    elseif isinf(b)
         return 1 + √(2 / π) * a / erfcx(a / √2)
     end
 
     @assert a < b < Inf && abs(a) ≤ abs(b)
     @assert a ≤ 0 ≤ b || 0 ≤ a ≤ b
 
-    Δ = exp((a - b)middle(a, b))
     if a ≤ 0 ≤ b
-        return 1 - √(2 / π) * (Δ * b - a)exp(-a^2 / 2) / (erf(b / √2) - erf(a / √2))
-    elseif 0 ≤ a ≤ b
-        return 1 - √(2 / π) * (Δ * b - a) / (erfcx(a / √2) - Δ * erfcx(√2))
+        ea = erf(a / √2)
+        eb = erf(b / √2)
+        fa = ea - √(2/π) * a * exp(-a^2 / 2)
+        fb = eb - √(2/π) * b * exp(-b^2 / 2)
+        m2 = (fb - fa) / (eb - ea)
+        @assert fb ≥ fa && eb ≥ ea
+        @assert 0 ≤ m2 ≤ 1
+        return m2
+    else # 0 ≤ a ≤ b
+        Δ = exp((a - b)middle(a, b))
+        ea = erfcx(a / √2)
+        eb = erfcx(b / √2)
+        fa = ea + √(2/π) * a
+        fb = eb + √(2/π) * b
+        m2 = (fa - fb * Δ) / (ea - eb * Δ)
+        @assert a^2 ≤ m2 ≤ b^2
+        return m2
     end
 end
 
 """
     tnmom2(a, b, μ, σ)
 
-Second moment of the truncated normal distribution, where μ, σ
-are the mean and standard deviation of the untruncated distribution.
+Second moment of the truncated normal distribution, where μ, σ are the mean and
+standard deviation of the untruncated distribution.
 """
-tnmom2(a, b, μ, σ) = tnmom1(a, b, μ, σ)^2 + tnvar(a, b, μ, σ)
+#tnmom2(a, b, μ, σ) = tnmom1(a, b, μ, σ)^2 + tnvar(a, b, μ, σ)
+function tnmom2(a, b, μ, σ)
+    α = (a - μ) / σ
+    β = (b - μ) / σ
+    return tnmom2c(-μ / σ, α, β)
+end

@@ -6,19 +6,19 @@ export tnvar
 
 Variance of the standard normal distribution truncated to the interval [a,b].
 """
-function tnvar(a, b)
+function tnvar(a::Real, b::Real)
     if !(a ≤ b)
         return oftype(middle(a, b), NaN)
     elseif a == b
         return zero(middle(a, b))
-    elseif abs(a) > abs(b)
-        return tnvar(-b, -a)
-    end
+    else
+        m1 = tnmom1(a, b)
+        m2 = √tnmom2(a, b)
+        return (m2 - m1) * (m2 + m1)
 
-    @assert a < b && abs(a) ≤ abs(b)
-    @assert a ≤ 0 ≤ b || 0 ≤ a < b
-    
-    return tnmom2(a, b) - tnmom1(a, b)^2
+        m = tnmom1(a, b)
+        return tnmom2c(m, a, b)
+    end
 end
 
 """
