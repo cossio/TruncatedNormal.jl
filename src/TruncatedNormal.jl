@@ -5,6 +5,6 @@ module TruncatedNormal
     include("tnvar.jl")
     include("tnmom1c.jl")
     include("tnmom2c.jl")
-
     include("util.jl")
+
 end

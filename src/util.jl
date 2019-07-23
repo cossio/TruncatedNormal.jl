@@ -20,6 +20,19 @@ function SpecialFunctions.erf(a::Real, b::Real)
 end
 
 """
+    xerfcx_pi(x)
+
+Computes 1/√π - x * erfcx(x), without cancellation.
+"""
+function xerfcx_pi(x::Real)
+    if xerfcx_asym_thresh(x, 3)
+        return xerfcx_asym_pi(x, 3)
+    else
+        return 1/√π - x * erfcx(x)
+    end
+end
+
+"""
     xerfcx_asym(x, m)
 
 Evaluates x * erfcx(x) by its asymptotic series for large x > 0,
@@ -72,7 +85,7 @@ for this value of x without appreciable error.
 xerfcx_asym_thresh(x::Real, m::Integer) = xerfcx_asym_thresh(x, Val(m))
 function xerfcx_asym_thresh(x::T, ::Val{m}) where {T <: Real, m}
     @assert m isa Integer
-    @assert m > 0 && x > 0
+    @assert m > 0
     return x > (√π * eps(float(T)))^(-1/2m) * exp(lgamma(m + 1/2) / 2m)
 end
 xerfcx_asym_thresh(x::Union{Float64,Integer}, ::Val{3}) = x > 452
