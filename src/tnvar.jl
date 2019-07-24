@@ -12,9 +12,9 @@ function tnvar(a::Real, b::Real)
     elseif a == b
         return zero(middle(a, b))
     else
-        m1 = tnmom1(a, b)
-        m2 = √tnmom2(a, b)
-        return (m2 - m1) * (m2 + m1)
+        # m1 = tnmom1(a, b)
+        # m2 = √tnmom2(a, b)
+        # return (m2 - m1) * (m2 + m1)
 
         m = tnmom1(a, b)
         return tnmom2c(m, a, b)

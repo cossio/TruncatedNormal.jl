@@ -42,6 +42,8 @@ for a = exp.(-10:100), b = exp.(-10:100)
     a ≤ b || continue
     c = tnmom1(a, b)
     @test abs(tnmom1c(c, a, b)) ≤ max(1e-10, c * 1e-10)
+    @test tnmom1c(a, a, b) ≥ 0
+    @test tnmom1c(b, a, b) ≤ 0
 end
 
 @test tnmom1c(0, -Inf, Inf, 0, 1) ≈ 0

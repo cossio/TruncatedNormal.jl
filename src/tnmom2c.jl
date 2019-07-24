@@ -18,6 +18,11 @@ function tnmom2c(c::Real, a::Real, b::Real)
         return tnmom2c(-c, -b, -a)
     elseif isinf(a) && isinf(b)
         return oftype(middle(a, b), 1 + c^2)
+    elseif c ≤ 0
+        #= at this point tnmom1(a, b) ≥ 0, so the subtraction is fine =#
+        m1 = tnmom1(a, b)
+        @assert m1 ≥ 0
+        return tnmom2(a, b) + c^2 - 2c * m1
     elseif isfinite(a) && isinf(b)
         return 1 + c^2 + √(2/π) * (a - 2c) / erfcx(a / √2)
     end
@@ -56,8 +61,6 @@ function tnmom2c(c::Real, a::Real, b::Real)
             m = (ra * exp_a + erfc_a) - (rb * exp_b + erfc_b)
         elseif γa ≥ 0 && γb ≥ 0
             m = (ra * exp_a - erfc_ma) - (rb * exp_b - erfc_mb)
-        else
-            error("trouble")
         end
         m /= (erf_b - erf_a)
     elseif 0 ≤ a ≤ b
@@ -78,7 +81,6 @@ function tnmom2c(c::Real, a::Real, b::Real)
             m = (γa - γb) / (erfc_a - erfc_b)
         elseif γa ≤ 0 && γb ≤ 0 # ζ ≤ a ≤ b
             exp_Δ = exp(-Δ)
-            @show a b c ra rb erfcx_a erfcx_b exp_Δ
             m = (ra + erfcx_a) - (rb + erfcx_b) * exp_Δ
             m /= erfcx_a - erfcx_b * exp_Δ
         elseif γa ≥ 0 && γb ≥ 0
