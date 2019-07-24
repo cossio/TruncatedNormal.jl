@@ -22,12 +22,11 @@ using Test, TruncatedNormal, SpecialFunctions
 @test isnan(tnmom1c(1, +Inf, 0))
 @test isnan(tnmom1c(1, 0, -Inf))
 
-@test isnan(tnmom1c(0, NaN, NaN))
-@test isnan(tnmom1c(0, 0, NaN))
-@test isnan(tnmom1c(0, NaN, 0))
-@test isnan(tnmom1c(1, NaN, NaN))
-@test isnan(tnmom1c(1, 0, NaN))
-@test isnan(tnmom1c(1, NaN, 0))
+for c = (0, 1), x = (0, NaN), y = (0, NaN)
+    if isnan(x) || isnan(y)
+        @test isnan(tnmom1c(c, x, y))
+    end
+end
 
 for x = exp.(-100:100), c = -100:100
     @test tnmom1c(c, -x, x) ≈ -c
@@ -36,6 +35,13 @@ end
 for x = -10:10, c = -10:10
     @test tnmom1c(c, x, +Inf) ≈ tnmom1(x, +Inf) - c
     @test tnmom1c(c, -Inf, x) ≈ tnmom1(-Inf, x) - c
+end
+
+#= tnmom1c(c, a, b) = 0 when c == tnmom1(a,b) =#
+for a = exp.(-10:100), b = exp.(-10:100)
+    a ≤ b || continue
+    c = tnmom1(a, b)
+    @test abs(tnmom1c(c, a, b)) ≤ max(1e-10, c * 1e-10)
 end
 
 @test tnmom1c(0, -Inf, Inf, 0, 1) ≈ 0

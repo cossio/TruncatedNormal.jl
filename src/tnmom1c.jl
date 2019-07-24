@@ -26,7 +26,7 @@ function tnmom1c(c::Real, a::Real, b::Real)
     end
 
     @assert a < b
-    @assert 0 ≤ a ≤ b || a ≤ 0 ≤ b
+    @assert a ≤ 0 ≤ b || 0 ≤ a ≤ b
     @assert c > 0
 
     if a ≤ 0 ≤ b
@@ -35,9 +35,10 @@ function tnmom1c(c::Real, a::Real, b::Real)
         exa = √(2/π) * exp(-a^2 / 2)
         exb = √(2/π) * exp(-b^2 / 2)
         if exa ≈ exb
+            return -c
             fa = c * era
             fb = c * erb
-        elseif c * era ≈ c * erb
+        elseif era ≈ erb
             fa = exa
             fb = exb
         else
@@ -48,8 +49,16 @@ function tnmom1c(c::Real, a::Real, b::Real)
     elseif 0 < a < b
         era = erfcx(a / √2)
         erb = erfcx(b / √2)
-        fa = (1 - c/a) * √(2/π) + √2 * c/a * xerfcx_pi(a / √2)
-        fb = (1 - c/b) * √(2/π) + √2 * c/b * xerfcx_pi(b / √2)
+        if xerfcx_asym_thresh(a / √2, 3)
+            fa = (1 - c/a) * √(2/π) + √2 * c/a * xerfcx_pi(a / √2)
+        else
+            fa = √(2/π) - c * era
+        end
+        if xerfcx_asym_thresh(b / √2, 3)
+            fb = (1 - c/b) * √(2/π) + √2 * c/b * xerfcx_pi(b / √2)
+        else
+            fb = √(2/π) - c * erb
+        end
         exΔ = exp(middle(a, b) * (a - b))
         return (fa - fb * exΔ) / (era - erb * exΔ)
     end

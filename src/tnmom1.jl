@@ -23,7 +23,7 @@ function tnmom1(a::Real, b::Real)
     Δm1 = expm1((a - b)middle(a, b))
     Δ = one(Δm1) + Δm1
 
-    if 0 ≤ a < b
+    if 0 ≤ a < b && b ≥ 1
         return √(2/π) * Δm1 / (Δ * erfcx(b / √2) - erfcx(a / √2))
     else # a ≤ 0 ≤ b
         return √(2/π) * Δm1 * exp(-a^2 / 2) / (erf(a / √2) - erf(b / √2))
