@@ -13,6 +13,7 @@ end
 
 for x = exp.(-100:100)
     @test tnmom1(-x, x) ≈ 0
+    @test tnmom1(0, x) ≈ -√(2/π) * expm1(-x^2 / 2) / erf(x / √2)
 end
 
 #@test tnmom1(3.720075976020836e-44, 1.0112214926104486e-43) ≈
@@ -21,16 +22,17 @@ end
 
 @test tnmom1(-Inf, Inf, 0, 1) == tnmom1(-Inf, Inf)
 
-for x = -100:100, y = x + 1 : 100
-    @test tnmom1(x, y, 0, 1) == tnmom1(x, y)
-end
-
 for x = -100:100
     @test tnmom1(x, +Inf, 0, 1) ≈ tnmom1(x, +Inf)
     @test tnmom1(-Inf, x, 0, 1) ≈ tnmom1(-Inf, x)
 end
 
 @test tnmom1(-1e4, 1e4, 0, 1) == tnmom1(-1e4, 1e4)
+
+for x = -100:100, y = x + 1 : 100
+    @test tnmom1(x, y, 0, 1) == tnmom1(x, y)
+end
+
 
 @test tnmom1(100, 115) ≈ 100.00999800099926070518490239457545847490332879043
 @test tnmom1(-1e6, -999000) ≈ -999000.00000100100100099899498898098
@@ -50,4 +52,9 @@ end
 
 for x = 1e1 .^ (-400:100:400)
     @test tnmean(-x, x) == tnmom1(-x, x) || isnan(tnmean(-x, x)) && isnan(tnmom1(-x, x))
+end
+
+for a = exp.(-10:10), b = exp.(-10:10)
+    a ≤ b || continue
+    @test a ≤ tnmom1(a, b) ≤ b
 end

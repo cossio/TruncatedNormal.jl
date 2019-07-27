@@ -43,7 +43,8 @@ function xerfcx_asym(x::Real, m::Integer)
     @assert m ≥ 0 && x > 0
     s = one(x / 1)
     for j = m : -1 : 0
-        s = 1 - (j + 1/2) / x^2 * s
+        #s = 1 - (j + 1/2) / x^2 * s
+        s = muladd((j + 1/2) / x / x, -s, 1)
     end
     return s / √π
 end
@@ -70,9 +71,10 @@ function xerfcx_asym_pi(x::Real, m::Integer)
     @assert m ≥ 0 && x > 0
     s = one(x / 1)
     for j = m : -1 : 1
-        s = 1 - s * (j + 1/2) / x^2
+        #s = 1 - s * (j + 1/2) / x^2
+        s = muladd((j + 1/2) / x / x, -s, 1)
     end
-    s = s / 2 / x^2
+    s = s / 2 / x / x
     return s / √π
 end
 

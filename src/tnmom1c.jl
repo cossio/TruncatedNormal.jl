@@ -21,30 +21,27 @@ function tnmom1c(c::Real, a::Real, b::Real)
         return tnmom1(a, b) - c
     elseif isinf(a) && isinf(b)
         return oftype(middle(a, b), -c)
-    # elseif isfinite(a) && isinf(b)
-    #     return √(2/π) / erfcx(a /√2) - c
     end
 
     @assert a < b
     @assert a ≤ 0 ≤ b || 0 ≤ a ≤ b
     @assert c > 0
 
+    exΔm1 = expm1(middle(a, b) * (a - b))
+
     if a ≤ 0 ≤ b
-        era = erf(a / √2)
-        erb = erf(b / √2)
         exa = √(2/π) * exp(-a^2 / 2)
         exb = √(2/π) * exp(-b^2 / 2)
-        if exa ≈ exb
-            return -c
-            fa = c * era
-            fb = c * erb
-        elseif era ≈ erb
-            fa = exa
-            fb = exb
-        else
-            fa = exa + c * era
-            fb = exb + c * erb
-        end
+        exa ≈ exb && return -c
+        era = erf(a / √2)
+        erb = erf(b / √2)
+        era ≈ erb && return middle(a - c, b - c)
+
+        m1 = (exa - exb) / (era - erb)
+        c ≈ m1 && return zero(m1)
+
+        fa = exa + c * era
+        fb = exb + c * erb
         return (fa - fb) / (erb - era)
     elseif 0 < a < b
         era = erfcx(a / √2)
@@ -59,6 +56,8 @@ function tnmom1c(c::Real, a::Real, b::Real)
         else
             fb = √(2/π) - c * erb
         end
+        fa = (1 - c/a) * √(2/π) + √2 * c/a * xerfcx_pi(a / √2)
+        fb = (1 - c/b) * √(2/π) + √2 * c/b * xerfcx_pi(b / √2)
         exΔ = exp(middle(a, b) * (a - b))
         return (fa - fb * exΔ) / (era - erb * exΔ)
     end

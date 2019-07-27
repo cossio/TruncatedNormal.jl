@@ -1,5 +1,5 @@
 using Statistics, SpecialFunctions
-export tnmom1, tnmom2, tnvar, tnmean
+export tnmom2, tnmom2i
 
 """
     tnmom2(a, b)
@@ -12,7 +12,7 @@ function tnmom2(a::Real, b::Real)
     if !(a ≤ b)
         return oftype(middle(a, b), NaN)
     elseif a == b
-        return oftype(middle(a, b), a * b)
+        return middle(a, b)^2
     elseif abs(a) > abs(b)
         return tnmom2(-b, -a)
     elseif isinf(a) && isinf(b)
@@ -25,22 +25,22 @@ function tnmom2(a::Real, b::Real)
     @assert a ≤ 0 ≤ b || 0 ≤ a ≤ b
 
     if a ≤ 0 ≤ b
-        ea = erf(a / √2)
-        eb = erf(b / √2)
-        fa = ea - √(2/π) * a * exp(-a^2 / 2)
-        fb = eb - √(2/π) * b * exp(-b^2 / 2)
+        ea = √(π/2) * erf(a / √2)
+        eb = √(π/2) * erf(b / √2)
+        fa = ea - a * exp(-a^2 / 2)
+        fb = eb - b * exp(-b^2 / 2)
         m2 = (fb - fa) / (eb - ea)
-        @assert fb ≥ fa && eb ≥ ea
-        @assert 0 ≤ m2 ≤ 1
+        fb ≥ fa && eb ≥ ea || error("error: a=$a, b=$b")
+        0 ≤ m2 ≤ 1 || error("error: a=$a, b=$b")
         return m2
     else # 0 ≤ a ≤ b
         exΔ = exp((a - b)middle(a, b))
-        ea = erfcx(a / √2)
-        eb = erfcx(b / √2)
-        fa = ea + √(2/π) * a
-        fb = eb + √(2/π) * b
+        ea = √(π/2) * erfcx(a / √2)
+        eb = √(π/2) * erfcx(b / √2)
+        fa = ea + a
+        fb = eb + b
         m2 = (fa - fb * exΔ) / (ea - eb * exΔ)
-        @assert a^2 ≤ m2 ≤ b^2
+        a^2 ≤ m2 ≤ b^2 || error("error: a=$a, b=$b")
         return m2
     end
 end
@@ -55,10 +55,49 @@ function tnmom2(a, b, μ, σ)
     if σ > 0
         α = (a - μ) / σ
         β = (b - μ) / σ
-        return tnmom2c(-μ / σ, α, β)
+        #return σ^2 * tnmom2c(-μ / σ, α, β)
+        return μ^2 + σ^2 * tnmom2(α, β) + 2μ * σ * tnmom1(α, β)
     elseif iszero(σ) && a ≤ b
         return clamp(μ^2 / one(μ), a, b)
     else
         return oftype(middle(a, b), NaN)
     end
+end
+
+"""
+    tnmom2i(a, b)
+
+Second moment of the normal distribution with variance -1 and mean 0,
+truncated to [a,b].
+"""
+function tnmom2i(a::Real, b::Real)
+    if !(-Inf < a ≤ b < Inf)
+        return oftype(middle(a, b), NaN)
+    elseif a == b
+        return middle(a, b)^2
+    elseif abs(a) > abs(b)
+        return tnmom2i(-b, -a)
+    end
+
+    @assert -Inf < a < b < Inf && abs(a) ≤ abs(b)
+    @assert a ≤ 0 ≤ b || 0 < a < b
+
+    Δ = (b - a) * middle(a, b)
+    exΔ = exp(-Δ)
+    da = dawson(a/√2)
+    db = dawson(b/√2)
+    m = ((da - a/√2)exΔ - (db - b/√2)) / (db - da * exΔ)
+    return m
+end
+
+"""
+    tnmom2i(a, b, μ, σ)
+
+Second moment of the normal distribution with variance -σ^2 and mean μ,
+truncated to [a,b].
+"""
+function tnmom2i(a, b, μ, σ)
+    α = (a - μ) / σ
+    β = (b - μ) / σ
+    return μ^2 + σ^2 * tnmom2i(α, β) + 2μ * σ * tnmom1i(α, β)
 end
