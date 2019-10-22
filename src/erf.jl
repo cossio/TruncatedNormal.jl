@@ -20,7 +20,7 @@ function erf(x::Float64)
     end
 end
 
-erf(x::Float64, y::Float64) = -erfc(x, y)
+erf(x::Float64, y::Float64) = erfc(y, x)
 
 function erfc(x::Float64)
     if x ≥ 0
@@ -39,7 +39,7 @@ function erfc(x::Float64, y::Float64)
     elseif abs(x) > abs(y)
         return -erfc(-x, -y)
     elseif x < 0 ≤ y
-
+        return erf(x) - erf(y)
     elseif 0 ≤ x ≤ y
         return erfccheb(x, y)
     else
