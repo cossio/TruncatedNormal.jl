@@ -14,9 +14,9 @@ function tnvar(a::Real, b::Real)
         m2 = √tnmom2(a, b)
         return (m2 - m1) * (m2 + m1)
 
-        m1 = tnmom1(a, b)
-        @assert a ≤ m1 ≤ b
-        return tnmom2c(m1, a, b)
+        # m1 = tnmom1(a, b)
+        # @assert a ≤ m1 ≤ b
+        # return tnmom2c(m1, a, b)
     else
         return oftype(middle(a, b), NaN)
     end

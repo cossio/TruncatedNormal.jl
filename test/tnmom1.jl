@@ -16,12 +16,9 @@ for x = exp.(-100:100)
     @test tnmom1(0, x) ≈ -√(2/π) * expm1(-x^2 / 2) / erf(x / √2)
 end
 
-#@test tnmom1(3.720075976020836e-44, 1.0112214926104486e-43) ≈
 @test tnmom1(1e-44, 1e-43) ≈ 5.4999999999999999999999999999999999999999e-44
 
-
 @test tnmom1(-Inf, Inf, 0, 1) == tnmom1(-Inf, Inf)
-
 for x = -100:100
     @test tnmom1(x, +Inf, 0, 1) ≈ tnmom1(x, +Inf)
     @test tnmom1(-Inf, x, 0, 1) ≈ tnmom1(-Inf, x)
@@ -32,7 +29,6 @@ end
 for x = -100:100, y = x + 1 : 100
     @test tnmom1(x, y, 0, 1) == tnmom1(x, y)
 end
-
 
 @test tnmom1(100, 115) ≈ 100.00999800099926070518490239457545847490332879043
 @test tnmom1(-1e6, -999000) ≈ -999000.00000100100100099899498898098
@@ -58,3 +54,6 @@ for a = exp.(-10:10), b = exp.(-10:10)
     a ≤ b || continue
     @test a ≤ tnmom1(a, b) ≤ b
 end
+
+# https://github.com/JuliaStats/Distributions.jl/issues/827
+@test tnmom1(0, 1000, 1000000, 1) ≈ 999.99999899899899900100501101901899090472046236710608108591983
