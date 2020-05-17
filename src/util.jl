@@ -1,25 +1,6 @@
 using Statistics, SpecialFunctions
 
 """
-    erf(a, b)
-
-Computes erf(b) - erf(a) in a numerically robust way.
-"""
-function SpecialFunctions.erf(a::Real, b::Real)
-    if a > b
-        return -erf(b, a)
-    elseif a ≤ b < 0
-        return erf(-b, -a)
-    elseif a ≤ 0
-        return erf(b) - erf(a)
-    elseif 0 ≤ a ≤ b
-        return erfc(a) - erfc(b)
-    else
-        return oftype(middle(a, b), NaN)
-    end
-end
-
-"""
     xerfcx_pi(x)
 
 Computes 1/√π - x * erfcx(x), without cancellation.

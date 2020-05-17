@@ -24,7 +24,7 @@ function tnmom1(a::Real, b::Real)
     #Δ = one(Δm1) + Δm1
 
     if a ≤ 0 ≤ b
-        m = √(2/π) * expm1(-Δ) * exp(-a^2 / 2) / (erf(a/√2) - erf(b/√2))
+        m = √(2/π) * expm1(-Δ) * exp(-a^2 / 2) / erf(b/√2, a/√2)
     elseif 0 < a < b
         z = exp(-Δ) * erfcx(b/√2) - erfcx(a/√2)
         iszero(z) && return middle(a, b)
