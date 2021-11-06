@@ -30,7 +30,3 @@ distribution:
     tnvar(a, b, μ, σ)
 
 It works even if the truncation interval is far from the mode of the distribution. See https://github.com/cossio/TruncatedNormal.jl/blob/master/notes/normal.pdf for mathematical details.
-
-# Bivariate truncated normal
-
-**Update 28 May 2018:** I added functions to compute the moments of the bivariate truncated normal. See `gauss2Dmoment`, `gauss2Dtruncstats`. *However these functions are not working well at the moment.*
