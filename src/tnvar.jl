@@ -1,5 +1,4 @@
 using Statistics, SpecialFunctions
-export tnvar
 
 """
     tnvar(a, b)
@@ -10,11 +9,11 @@ function tnvar(a::Real, b::Real)
     if a == b
         return zero(middle(a, b))
     elseif a < b
-        m1 = tnmom1(a, b)
+        m1 = tnmean(a, b)
         m2 = √tnmom2(a, b)
         return (m2 - m1) * (m2 + m1)
 
-        # m1 = tnmom1(a, b)
+        # m1 = tnmean(a, b)
         # @assert a ≤ m1 ≤ b
         # return tnmom2c(m1, a, b)
     else

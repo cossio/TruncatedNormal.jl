@@ -1,5 +1,4 @@
 using Statistics, SpecialFunctions
-export tnmom1c
 
 """
     tnmom1c(c, a, b)
@@ -16,9 +15,9 @@ function tnmom1c(c::Real, a::Real, b::Real)
     elseif abs(a) > abs(b)
         return -tnmom1c(-c, -b, -a)
     elseif c ≤ 0
-        #= At this point tnmom1(a,b) ≥ 0.
+        #= At this point tnmean(a,b) ≥ 0.
         Therefore the subtraction is fine. =#
-        return tnmom1(a, b) - c
+        return tnmean(a, b) - c
     elseif isinf(a) && isinf(b)
         return oftype(middle(a, b), -c)
     end

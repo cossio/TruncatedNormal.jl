@@ -74,3 +74,10 @@ end
 xerfcx_asym_thresh(x::Union{Float64,Integer}, ::Val{3}) = x > 452
 xerfcx_asym_thresh(x::Union{Float32}, ::Val{3}) = x > 16
 xerfcx_asym_thresh(x::Union{Float16}, ::Val{3}) = x > 4
+
+"""
+    two
+
+Returns 2 of appropriate type. Like `one`, but `two`.
+"""
+two(::Union{Type{T}, T}) where {T} = convert(T, 2)

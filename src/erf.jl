@@ -1,5 +1,3 @@
-export erf, erfc, inverfc
-
 #= Numerical recipes implementation of Error function
 Press, et al (2007) Numerical Recipes: The Art of Scientific Computing. 3rd Ed.
 Section 6.2.2 =#

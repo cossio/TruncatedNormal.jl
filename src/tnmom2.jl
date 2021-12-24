@@ -1,5 +1,4 @@
 using Statistics, SpecialFunctions
-export tnmom2, tnmom2i
 
 """
     tnmom2(a, b)
@@ -56,7 +55,7 @@ function tnmom2(a, b, μ, σ)
         α = (a - μ) / σ
         β = (b - μ) / σ
         #return σ^2 * tnmom2c(-μ / σ, α, β)
-        return μ^2 + σ^2 * tnmom2(α, β) + 2μ * σ * tnmom1(α, β)
+        return μ^2 + σ^2 * tnmom2(α, β) + 2μ * σ * tnmean(α, β)
     elseif iszero(σ) && a ≤ b
         return clamp(μ^2 / one(μ), a, b)
     else

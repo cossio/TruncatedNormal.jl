@@ -1,18 +1,15 @@
-using Statistics, SpecialFunctions
-export tnmom1, tnmean, tnmom1i
-
 """
-    tnmom1(a, b)
+    tnmean(a, b)
 
-Mean of the truncated standard normal distribution.
+Mean of the truncated standard normal distribution in the interval [a, b].
 """
-function tnmom1(a::Real, b::Real)
+function tnmean(a::Real, b::Real)
     if !(a ≤ b)
         return oftype(middle(a, b), NaN)
     elseif a == b
         return middle(a, b)
     elseif abs(a) > abs(b)
-        return -tnmom1(-b, -a)
+        return -tnmean(-b, -a)
     elseif isinf(a) && isinf(b)
         return zero(middle(a, b))
     end
@@ -34,15 +31,15 @@ function tnmom1(a::Real, b::Real)
 end
 
 """
-    tnmom1(a, b, μ, σ)
+    tnmean(a, b, μ, σ)
 
 Mean of the truncated normal distribution, where μ, σ are the mean and standard
 deviation of the untruncated distribution.
 """
-function tnmom1(a, b, μ, σ)
+function tnmean(a, b, μ, σ)
     α = (a - μ) / σ
     β = (b - μ) / σ
-    return μ + tnmom1(α, β) * σ
+    return μ + tnmean(α, β) * σ
 end
 
 """
@@ -55,7 +52,7 @@ Mean of the truncated standard normal distribution.
 Mean of the truncated normal distribution, where μ, σ are the mean and standard
 deviation of the untruncated distribution.
 """
-tnmean = tnmom1
+tnmean(a, b) = tnmean(a, b)
 
 """
     tnmom1i(a, b)

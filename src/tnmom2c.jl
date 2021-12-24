@@ -1,5 +1,4 @@
 using Statistics, SpecialFunctions
-export tnmom2c
 
 """
     tnmom2c(c, a, b)
@@ -19,7 +18,7 @@ function tnmom2c(c::Real, a::Real, b::Real)
     elseif isinf(a) && isinf(b)
         return oftype(middle(a, b), 1 + c^2)
     elseif c ≤ 0
-        m1 = tnmom1(a, b)
+        m1 = tnmean(a, b)
         @assert m1 ≥ 0
         #= at this point m1 ≥ 0, so the subtraction is fine =#
         return tnmom2(a, b) + c^2 - 2c * m1
