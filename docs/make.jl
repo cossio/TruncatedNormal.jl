@@ -1,5 +1,6 @@
-using Documenter, Literate
-import TruncatedNormal as TN
+import Documenter
+import Literate
+import TruncatedNormal as TruncNorm
 
 ENV["JULIA_DEBUG"] = "Documenter,Literate,TruncatedNormal"
 
@@ -42,8 +43,8 @@ end
 #=
 Build docs.
 =#
-makedocs(
-    modules = [TN],
+Documenter.makedocs(
+    modules = [TruncNorm],
     sitename = "TruncatedNormal.jl",
     pages = [
         "Home" => "index.md",
@@ -60,7 +61,7 @@ clear_md_files(literate_dir)
 #=
 Deploy docs to Github pages.
 =#
-deploydocs(
+Documenter.deploydocs(
     repo = "github.com/cossio/TruncatedNormal.jl.git",
     devbranch = "master"
 )

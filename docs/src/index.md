@@ -3,10 +3,10 @@
 Truncated normal distributions in Julia.
 
 This package doesn't export any symbols.
-We recommended to import the package like this:
+It can be imported as:
 
 ```julia
-import TruncatedNormal as TN
+import TruncatedNormal as TruncNorm
 ```
 
 to avoid typing a long name everytime.
