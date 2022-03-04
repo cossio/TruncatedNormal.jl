@@ -36,3 +36,8 @@ end
 @test TruncNorm.tnmom2(0, 20, 3, 3//2) ≈ 11.4986153820554548159603543747
 @test TruncNorm.tnmom2(10, 20, 3, 3//2) ≈ 106.111726253622178129044932133
 @test TruncNorm.tnmom2(-10, 20, 3, 3//2) ≈ 11.2499999999999997949173964131
+
+#3
+@test TruncNorm.tnmom2(-2, 2, 3, 0) ≈ 4
+@test TruncNorm.tnmom2(-2, 2, -3, 0) ≈ 4
+@test TruncNorm.tnmom2(-2, 2, 1, 0) ≈ 1
