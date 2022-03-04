@@ -57,7 +57,11 @@ function tnmom2(a, b, μ, σ)
         #return σ^2 * tnmom2c(-μ / σ, α, β)
         return μ^2 + σ^2 * tnmom2(α, β) + 2μ * σ * tnmean(α, β)
     elseif iszero(σ) && a ≤ b
-        return clamp(μ^2 / one(μ), a, b)
+        # point mass
+        # ⟹ if μ ∈ [a,b], 2nd moment is μ^2
+        # ⟹ if μ < a, 2nd moment is a^2
+        # ⟹ if μ > b, 2nd moment is b^2
+        return clamp(μ / one(μ), a, b)^2
     else
         return oftype(middle(a, b), NaN)
     end
