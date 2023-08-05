@@ -28,6 +28,21 @@ Computes log(normcdf(a, b)), but retaining accuracy.
 lognormcdf(a::Real, b::Real) = logerf(a / √two(a), b / √two(b)) - log(two(a + b))
 
 """
+    tnlogpdf(x, a, b)
+
+Logarithm of the probability density function of the standard normal
+distribution truncated to (a, b), evaluated at x.
+"""
+function tnlogpdf(x::Real, a::Real, b::Real)
+    result = -x^2/2 - lognormcdf(a, b)
+    if x < a || x > b
+        return oftype(result, -Inf)
+    else
+        return result - log(two(result) * pi) / 2
+    end
+end
+
+"""
 	tnmean(a)
 
 Mean of the standard normal distribution,

@@ -1,10 +1,9 @@
-using SafeTestsets
-
-@safetestset "util" begin include("util.jl") end
-@safetestset "tnmean" begin include("tnmean.jl") end
-@safetestset "tnmom2" begin include("tnmom2.jl") end
-@safetestset "tnmom1c" begin include("tnmom1c.jl") end
-@safetestset "tnmom2c" begin include("tnmom2c.jl") end
-@safetestset "tnvar" begin include("tnvar.jl") end
-@safetestset "truncnorm" begin include("truncnorm.jl") end
-@safetestset "rejection" begin include("rejection.jl") end
+module util_tests include("util.jl") end
+module tnmean_tests include("tnmean.jl") end
+module tnmom2_tests include("tnmom2.jl") end
+module tnmom1c_tests include("tnmom1c.jl") end
+module tnmom2c_tests include("tnmom2c.jl") end
+module tnvar_tests include("tnvar.jl") end
+module truncnorm_tests include("truncnorm.jl") end
+module rejection_tests include("rejection.jl") end
+module logpdf_tests include("log_pdf.jl") end
