@@ -1,15 +1,15 @@
 name = "TruncatedNormal"
 uuid = "57af301a-a58c-11e9-1f68-193042cecb35"
-version = "1.0.1"
+version = "1.0.2-DEV"
 
 [deps]
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
-Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
 julia = "1.6"
+Statistics = "1"
 ChainRulesCore = "1"
 SpecialFunctions = "2"
-Statistics = "1"
