@@ -1,6 +1,6 @@
 name = "TruncatedNormal"
 uuid = "57af301a-a58c-11e9-1f68-193042cecb35"
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
