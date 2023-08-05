@@ -7,3 +7,4 @@ module tnvar_tests include("tnvar.jl") end
 module truncnorm_tests include("truncnorm.jl") end
 module rejection_tests include("rejection.jl") end
 module logpdf_tests include("log_pdf.jl") end
+module aqua_tests include("aqua.jl") end
