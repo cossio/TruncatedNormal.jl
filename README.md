@@ -1,5 +1,9 @@
 # TruncatedNormal
 
+**Note:** Merged in to Distributions.jl, see JuliaStats/Distributions.jl#1058, JuliaStats/Distributions.jl#691.
+
+## Installation
+
 Install with
 
 ```julia
@@ -7,7 +11,9 @@ using Pkg
 Pkg.add(url="https://github.com/cossio/TruncatedNormal.jl")
 ```
 
-This package does not import any symbols. The following functions are defined.
+## Usage
+
+This package does not export any symbols. The following functions are defined.
 
 Mean of the truncated standard normal distribution:
 
