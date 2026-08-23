@@ -11,4 +11,10 @@ TruncatedNormal = "57af301a-a58c-11e9-1f68-193042cecb35"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 
 [compat]
-Aqua = "0.6"
+Aqua = "0.6, 0.8"
+Distributions = "0.25.131"
+FiniteDifferences = "0.12.34"
+SafeTestsets = "0.1.0"
+SpecialFunctions = "2.9.0"
+Statistics = "1.11.1"
+Zygote = "0.7.12"
