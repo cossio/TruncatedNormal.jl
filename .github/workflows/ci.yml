@@ -20,8 +20,8 @@ jobs:
         arch:
           - default
     steps:
-      - uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2.8.0
-      - uses: julia-actions/setup-julia@ac0d62164df5a47de404f4e96ce86a1a28a28d56 # v1.9.6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: julia-actions/setup-julia@fa02766e078afaaf09b14210362cee14137e6a32 # v3.0.2
         with: 
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
